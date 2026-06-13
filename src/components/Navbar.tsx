@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,11 +26,11 @@ export function Navbar() {
 
   return (
     <motion.header
-      className={`fixed top-0 z-40 w-full transition-colors duration-300 ${
+      className={`fixed top-0 left-0 z-40 w-full transition-colors duration-300 ${
         isScrolled ? "bg-background/80 backdrop-blur-md shadow-lg" : "bg-transparent"
       }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
@@ -66,10 +65,15 @@ export function Navbar() {
 
         {/* Mobile Nav Toggle */}
         <button
-          className="md:hidden text-foreground ml-4 shrink-0"
+          className="md:hidden text-foreground ml-4 mr-2 shrink-0 relative w-8 h-8 flex items-center justify-center focus:outline-none z-50"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle Menu"
         >
-          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          <div className="flex flex-col justify-between w-6 h-5 transform transition-all duration-300 origin-center overflow-hidden">
+            <div className={`bg-white h-[2px] w-7 transform transition-all duration-300 origin-left ${isMobileMenuOpen ? 'rotate-[42deg] w-8' : ''}`}></div>
+            <div className={`bg-white h-[2px] w-7 rounded transform transition-all duration-300 ${isMobileMenuOpen ? '-translate-x-10 opacity-0' : ''}`}></div>
+            <div className={`bg-white h-[2px] w-7 transform transition-all duration-300 origin-left ${isMobileMenuOpen ? '-rotate-[42deg] w-8' : ''}`}></div>
+          </div>
         </button>
       </div>
 

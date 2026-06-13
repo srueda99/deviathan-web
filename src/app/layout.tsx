@@ -24,9 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="dark scroll-smooth overflow-x-hidden">
       <body
-        className={`${kanit.variable} ${openSans.variable} antialiased selection:bg-primary selection:text-foreground`}
+        className={`${kanit.variable} ${openSans.variable} antialiased selection:bg-primary selection:text-foreground overflow-x-hidden`}
       >
         {children}
       </body>
