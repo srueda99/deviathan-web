@@ -10,7 +10,8 @@ import {
   ShieldCheck, 
   Bot, 
   Zap,
-  ArrowRight
+  ArrowRight,
+  Code2Icon
 } from "lucide-react";
 import Link from "next/link";
 
@@ -26,7 +27,7 @@ const services = [
     description: "Diseñamos aplicaciones para iOS y Android con experiencias intuitivas y alto rendimiento.",
   },
   {
-    icon: <Cpu className="w-8 h-8" />,
+    icon: <Code2Icon className="w-8 h-8" />,
     title: "Software a la medida",
     description: "Soluciones digitales adaptadas a las necesidades de tu negocio.",
   },

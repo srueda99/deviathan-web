@@ -21,19 +21,19 @@ export function Footer() {
   return (
     <footer className="bg-secondary/50 border-t border-white/5 py-12">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-8">
-          <div className="col-span-1 md:col-span-2 flex justify-start items-center">
-            <Link href="#home" className="relative h-40 w-96 block -ml-4 md:-ml-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-8">
+          <div className="col-span-1 md:col-span-2 flex justify-center md:justify-start items-center">
+            <Link href="#home" className="relative h-24 w-64 lg:h-40 lg:w-96 block -ml-4 md:-ml-6">
               <Image
-                src="/logos/logo-secondary.svg"
+                src="/logos/logoAndname-white.svg"
                 alt="Deviathan Logo"
                 fill
-                className="object-contain object-left"
+                className="object-contain object-center md:object-left"
               />
             </Link>
           </div>
           
-          <div className="flex flex-col md:items-start">
+          <div className="flex flex-col items-center md:items-start">
             <h3 className="text-lg font-kanit font-semibold mb-4 text-foreground">Servicios</h3>
             <ul className="space-y-2 text-foreground/60 font-open-sans">
               <li><Link href="#services" className="hover:text-primary transition-colors">Desarrollo Web</Link></li>
@@ -43,7 +43,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div className="flex flex-col md:items-start">
+          <div className="flex flex-col items-center md:items-start">
             <h3 className="text-lg font-kanit font-semibold mb-4 text-foreground">Nuestras Redes</h3>
             <div className="flex gap-4">
               <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-primary transition-colors text-foreground">

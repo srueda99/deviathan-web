@@ -45,19 +45,19 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className="text-xl font-medium text-foreground/80 hover:text-primary transition-colors font-kanit"
+              className="text-lg xl:text-xl font-medium text-foreground/80 hover:text-primary transition-colors font-kanit"
             >
               {link.name}
             </Link>
           ))}
           <Link
             href="#contact"
-            className="px-5 py-2 text-xl font-semibold rounded-full bg-primary text-foreground hover:bg-primary/90 transition-colors"
+            className="px-5 py-2 text-lg xl:text-xl font-semibold rounded-full bg-primary text-foreground hover:bg-primary/90 transition-colors"
           >
             Comenzar
           </Link>
@@ -65,7 +65,7 @@ export function Navbar() {
 
         {/* Mobile Nav Toggle */}
         <button
-          className="md:hidden text-foreground ml-4 mr-2 shrink-0 relative w-8 h-8 flex items-center justify-center focus:outline-none z-50"
+          className="lg:hidden text-foreground ml-4 mr-2 shrink-0 relative w-8 h-8 flex items-center justify-center focus:outline-none z-50"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle Menu"
         >
@@ -80,7 +80,7 @@ export function Navbar() {
       {/* Mobile Nav Menu */}
       {isMobileMenuOpen && (
         <motion.div
-          className="md:hidden bg-background/90 backdrop-blur-md border-t border-white/5 shadow-2xl h-[50vh] overflow-y-auto"
+          className="lg:hidden bg-background/90 backdrop-blur-md border-t border-white/5 shadow-2xl h-[50vh] overflow-y-auto"
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "50vh" }}
           exit={{ opacity: 0, height: 0 }}

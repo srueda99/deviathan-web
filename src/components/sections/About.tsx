@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 import Image from "next/image";
@@ -15,6 +16,8 @@ const benefits = [
 ];
 
 export function About() {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <section id="about" className="py-24 relative bg-secondary/20">
       <div className="container mx-auto px-6">
@@ -30,19 +33,64 @@ export function About() {
             <div className="relative w-full aspect-square max-w-md mx-auto">
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/40 to-transparent rounded-full blur-3xl mix-blend-screen"></div>
               <motion.div 
-                className="absolute inset-4 rounded-3xl bg-background/50 backdrop-blur-xl flex items-center justify-center overflow-hidden"
+                className="absolute inset-4 rounded-3xl bg-background/50 backdrop-blur-xl flex items-center justify-center overflow-hidden cursor-pointer group"
                 animate={{ 
                   boxShadow: ["0 0 0px rgba(118,104,231,0)", "0 0 40px rgba(118,104,231,0.2)", "0 0 0px rgba(118,104,231,0)"]
                 }}
                 transition={{ duration: 4, repeat: Infinity }}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
               >
+                {/* Glitch Hover Effect */}
                 <div className="absolute w-[275%] h-[275%] -top-[60%] -left-[60%] origin-center">
+                  {/* Logo */}
                   <Image 
                     src="/logos/logo-white.svg"
                     alt="Deviathan Core"
                     fill
-                    className="object-contain opacity-90 drop-shadow-[0_0_30px_rgba(118,104,231,0.3)]"
+                    className={`object-contain opacity-90 drop-shadow-[0_0_30px_rgba(118,104,231,0.3)] transition-all duration-300 ${isHovered ? 'blur-[1px] opacity-70' : ''}`}
                   />
+                  
+                  {/* Glitch Layer 1 */}
+                  {isHovered && (
+                    <div 
+                      className="absolute inset-0 opacity-80 mix-blend-screen"
+                      style={{ 
+                        animation: 'glitch-anim-1 0.4s infinite linear alternate-reverse',
+                        filter: 'drop-shadow(-4px 0px 4px #7668E7)'
+                      }}
+                    >
+                      <Image 
+                        src="/logos/logo-white.svg"
+                        alt=""
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                  )}
+
+                  {/* Glitch Layer 2 */}
+                  {isHovered && (
+                    <div 
+                      className="absolute inset-0 opacity-80 mix-blend-screen"
+                      style={{ 
+                        animation: 'glitch-anim-2 0.3s infinite linear alternate-reverse',
+                        filter: 'drop-shadow(4px 0px 4px #D946EF)'
+                      }}
+                    >
+                      <Image 
+                        src="/logos/logo-white.svg"
+                        alt=""
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                  )}
+
+                  {/* Scanlines Effect */}
+                  {isHovered && (
+                    <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] pointer-events-none z-10" />
+                  )}
                 </div>
               </motion.div>
             </div>

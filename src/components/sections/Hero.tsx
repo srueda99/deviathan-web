@@ -16,9 +16,9 @@ export function Hero() {
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px] -z-10 mix-blend-screen"></div>
       <div className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-secondary/40 rounded-full blur-[150px] -z-10 mix-blend-screen"></div>
 
-      <div className="container mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <motion.div 
-          className="flex flex-col gap-6"
+          className="flex flex-col gap-6 lg:col-span-1 col-span-full"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -29,7 +29,7 @@ export function Hero() {
             <span className="text-sm font-medium tracking-wide">Next-Gen Digital Solutions</span>
           </div>
           
-          <h1 className="text-5xl md:text-6xl font-bold font-kanit leading-tight">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-[5rem] font-bold font-kanit leading-tight">
             Construimos el <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">Futuro Digital</span><br/>
             de tu Negocio
           </h1>
@@ -60,7 +60,7 @@ export function Hero() {
 
         {/* Abstract 3D/Code Visual representation */}
         <motion.div 
-          className="relative h-[400px] lg:h-[600px] w-full hidden md:block"
+          className="relative h-[400px] lg:h-[600px] w-full hidden lg:block"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
