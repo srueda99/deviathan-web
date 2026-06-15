@@ -24,6 +24,11 @@
     --secondary-foreground: #E2E8F0;
   }
 
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+  }
+
   body {
     background-color: var(--background);
     color: var(--foreground);

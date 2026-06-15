@@ -29,6 +29,29 @@ export function Navbar() {
     { name: "Contacto", href: "#contact" },
   ];
 
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.includes('?')) return;
+
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    
+    if (element) {
+      const navbarHeight = 100;
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      
+      window.scrollTo({
+        top: elementPosition - navbarHeight,
+        behavior: "smooth"
+      });
+      window.history.pushState({}, '', href);
+    }
+
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
+  };
+
   return (
     <motion.header
       className={`fixed top-0 left-0 z-40 w-full transition-colors duration-300 ${
@@ -39,7 +62,7 @@ export function Navbar() {
       transition={{ duration: 0.5 }}
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="#home" className="relative h-16 w-48 md:h-28 md:w-80 flex items-center shrink-0">
+        <a href="#home" onClick={(e) => scrollToSection(e, "#home")} className="relative h-16 w-48 md:h-28 md:w-80 flex items-center shrink-0 cursor-pointer">
           {mounted && (
             <Image
               src={resolvedTheme === 'dark' ? "/logos/logoAndname-white.svg" : "/logos/logoAndname-black.svg"}
@@ -49,26 +72,28 @@ export function Navbar() {
               priority
             />
           )}
-        </Link>
+        </a>
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
           <ThemeToggle />
           {navLinks.map((link) => (
-            <Link
+            <a
               key={link.name}
               href={link.href}
-              className="text-lg xl:text-xl font-medium text-foreground/80 hover:text-primary transition-colors font-kanit"
+              onClick={(e) => scrollToSection(e, link.href)}
+              className="text-lg xl:text-xl font-medium text-foreground/80 hover:text-primary transition-colors font-kanit cursor-pointer"
             >
               {link.name}
-            </Link>
+            </a>
           ))}
-          <Link
+          <a
             href="#contact"
-            className="px-5 py-2 text-lg xl:text-xl font-semibold rounded-full bg-primary text-foreground hover:bg-primary/90 transition-colors"
+            onClick={(e) => scrollToSection(e, "#contact")}
+            className="px-5 py-2 text-lg xl:text-xl font-semibold rounded-full bg-primary text-foreground hover:bg-primary/90 transition-colors cursor-pointer"
           >
             Comenzar
-          </Link>
+          </a>
         </nav>
 
         {/* Mobile Nav Toggle */}
@@ -100,26 +125,26 @@ export function Navbar() {
           <div className="flex flex-col px-8 py-8 gap-6 h-full">
             {navLinks.map((link, index) => (
               <div key={link.name} className="flex flex-col">
-                <Link
+                <a
                   href={link.href}
-                  className="text-2xl font-kanit font-medium text-foreground/90 hover:text-primary transition-colors py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => scrollToSection(e, link.href)}
+                  className="text-2xl font-kanit font-medium text-foreground/90 hover:text-primary transition-colors py-2 cursor-pointer"
                 >
                   {link.name}
-                </Link>
+                </a>
                 {index < navLinks.length - 1 && (
                   <div className="h-px bg-foreground/10 w-[80%] mt-4" />
                 )}
               </div>
             ))}
             
-            <Link
+            <a
               href="#contact"
-              className="mt-4 px-6 py-3 text-center text-lg font-semibold rounded-full bg-primary text-foreground hover:bg-primary/90 transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={(e) => scrollToSection(e, "#contact")}
+              className="mt-4 px-6 py-3 text-center text-lg font-semibold rounded-full bg-primary text-foreground hover:bg-primary/90 transition-colors cursor-pointer"
             >
               Get Started
-            </Link>
+            </a>
           </div>
         </motion.div>
       )}
