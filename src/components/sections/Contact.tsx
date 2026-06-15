@@ -8,6 +8,7 @@ export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [selectedService, setSelectedService] = useState("");
+  const [focusedField, setFocusedField] = useState<string | null>(null);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -75,65 +76,75 @@ export function Contact() {
               <p className="text-foreground/70 font-open-sans">Te contactaremos a la brevedad.</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-medium font-kanit">Nombre Completo</label>
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-3 relative">
+                  <label htmlFor="name" className={`text-sm font-medium font-kanit transition-colors ${focusedField === 'name' ? 'text-primary' : 'text-foreground/80'}`}>Nombre Completo</label>
                   <input 
                     type="text" 
                     id="name" 
                     required
-                    className="w-full bg-background/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-open-sans"
+                    onFocus={() => setFocusedField('name')}
+                    onBlur={() => setFocusedField(null)}
+                    className="w-full bg-background/30 border-b-2 border-x-0 border-t-0 border-white/10 px-0 py-3 focus:outline-none focus:ring-0 focus:border-primary transition-all font-open-sans placeholder:text-foreground/20 rounded-none"
                     placeholder="John Doe"
                   />
                 </div>
-                <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium font-kanit">Correo Electrónico</label>
+                <div className="space-y-3 relative">
+                  <label htmlFor="email" className={`text-sm font-medium font-kanit transition-colors ${focusedField === 'email' ? 'text-primary' : 'text-foreground/80'}`}>Correo Electrónico</label>
                   <input 
                     type="email" 
                     id="email" 
                     required
-                    className="w-full bg-background/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-open-sans"
-                    placeholder="john@example.com"
+                    onFocus={() => setFocusedField('email')}
+                    onBlur={() => setFocusedField(null)}
+                    className="w-full bg-background/30 border-b-2 border-x-0 border-t-0 border-white/10 px-0 py-3 focus:outline-none focus:ring-0 focus:border-primary transition-all font-open-sans placeholder:text-foreground/20 rounded-none"
+                    placeholder="john@ejemplo.com"
                   />
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label htmlFor="service" className="text-sm font-medium font-kanit">Servicio de Interés</label>
+              <div className="space-y-3 relative">
+                <label htmlFor="service" className={`text-sm font-medium font-kanit transition-colors ${focusedField === 'service' ? 'text-primary' : 'text-foreground/80'}`}>Servicio de Interés</label>
                 <select 
                   id="service" 
-                  className="w-full bg-background/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-open-sans appearance-none"
+                  onFocus={() => setFocusedField('service')}
+                  onBlur={() => setFocusedField(null)}
+                  className="w-full bg-background/30 border-b-2 border-x-0 border-t-0 border-white/10 px-0 py-3 focus:outline-none focus:ring-0 focus:border-primary transition-all font-open-sans appearance-none rounded-none cursor-pointer"
                   value={selectedService}
                   onChange={(e) => setSelectedService(e.target.value)}
                 >
-                  <option value="" disabled>Selecciona un servicio</option>
-                  <option value="Web Development">Desarrollo Web</option>
-                  <option value="Mobile Apps">Aplicaciones Móviles</option>
-                  <option value="Software Dev">Desarrollo de Software</option>
-                  <option value="UI/UX Design">Diseño UI/UX</option>
-                  <option value="Infrastructure">Infraestructura</option>
-                  <option value="Cybersecurity">Ciberseguridad</option>
-                  <option value="Artificial Intelligence">Inteligencia Artificial</option>
-                  <option value="Automation">Automatización</option>
-                  <option value="Other">Otro</option>
+                  <option value="" disabled className="bg-secondary text-foreground/50">Selecciona un servicio</option>
+                  <option value="Web Development" className="bg-secondary text-foreground">Desarrollo Web</option>
+                  <option value="Mobile Apps" className="bg-secondary text-foreground">Aplicaciones Móviles</option>
+                  <option value="Software Dev" className="bg-secondary text-foreground">Desarrollo de Software</option>
+                  <option value="UI/UX Design" className="bg-secondary text-foreground">Diseño UI/UX</option>
+                  <option value="Infrastructure" className="bg-secondary text-foreground">Infraestructura</option>
+                  <option value="Cybersecurity" className="bg-secondary text-foreground">Ciberseguridad</option>
+                  <option value="Artificial Intelligence" className="bg-secondary text-foreground">Inteligencia Artificial</option>
+                  <option value="Automation" className="bg-secondary text-foreground">Automatización</option>
+                  <option value="Other" className="bg-secondary text-foreground">Otro</option>
                 </select>
               </div>
 
-              <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-medium font-kanit">Háblanos de tu proyecto</label>
+              <div className="space-y-3 relative">
+                <label htmlFor="message" className={`text-sm font-medium font-kanit transition-colors ${focusedField === 'message' ? 'text-primary' : 'text-foreground/80'}`}>Háblanos de tu proyecto</label>
                 <textarea 
                   id="message" 
-                  rows={4}
-                  className="w-full bg-background/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-open-sans resize-none"
+                  rows={3}
+                  onFocus={() => setFocusedField('message')}
+                  onBlur={() => setFocusedField(null)}
+                  className="w-full bg-background/30 border-b-2 border-x-0 border-t-0 border-white/10 px-0 py-3 focus:outline-none focus:ring-0 focus:border-primary transition-all font-open-sans resize-none placeholder:text-foreground/20 rounded-none"
                   placeholder="Quiero construir..."
                 ></textarea>
               </div>
 
-              <button 
+              <motion.button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-4 rounded-xl transition-all flex items-center justify-center gap-2"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full bg-white/5 border border-white/10 hover:bg-primary hover:border-primary text-white font-kanit font-semibold py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 mt-4"
               >
                 {isSubmitting ? (
                   <>
@@ -141,10 +152,10 @@ export function Contact() {
                   </>
                 ) : (
                   <>
-                    Enviar Mensaje <Send className="w-5 h-5" />
+                    Iniciar Proyecto <Send className="w-5 h-5" />
                   </>
                 )}
-              </button>
+              </motion.button>
             </form>
           )}
         </motion.div>
