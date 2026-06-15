@@ -10,7 +10,6 @@ export function Contact() {
   const [selectedService, setSelectedService] = useState("");
 
   useEffect(() => {
-    // Check if there's a service pre-selected from URL hash
     const handleHashChange = () => {
       const hash = window.location.hash;
       if (hash.includes('?service=')) {
@@ -28,7 +27,6 @@ export function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
@@ -48,7 +46,7 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            Ready to <span className="text-primary">Evolve?</span>
+            ¡Estamos Listos! <span className="text-primary">¿Y Tú?</span>
           </motion.h2>
           <motion.p 
             className="text-foreground/70 font-open-sans"
@@ -57,7 +55,7 @@ export function Contact() {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            Leave your details below and we&apos;ll get back to you within 24 hours.
+            Déjanos tus datos y te contactaremos en menos de una hora.
           </motion.p>
         </div>
 
@@ -73,14 +71,14 @@ export function Contact() {
               <div className="w-20 h-20 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Send className="w-10 h-10" />
               </div>
-              <h3 className="text-2xl font-kanit font-bold mb-2">Message Received!</h3>
-              <p className="text-foreground/70 font-open-sans">We will be in touch shortly.</p>
+              <h3 className="text-2xl font-kanit font-bold mb-2">¡Mensaje Recibido!</h3>
+              <p className="text-foreground/70 font-open-sans">Te contactaremos a la brevedad.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-medium font-kanit">Full Name</label>
+                  <label htmlFor="name" className="text-sm font-medium font-kanit">Nombre Completo</label>
                   <input 
                     type="text" 
                     id="name" 
@@ -90,7 +88,7 @@ export function Contact() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium font-kanit">Email Address</label>
+                  <label htmlFor="email" className="text-sm font-medium font-kanit">Correo Electrónico</label>
                   <input 
                     type="email" 
                     id="email" 
@@ -102,33 +100,33 @@ export function Contact() {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="service" className="text-sm font-medium font-kanit">Service of Interest</label>
+                <label htmlFor="service" className="text-sm font-medium font-kanit">Servicio de Interés</label>
                 <select 
                   id="service" 
                   className="w-full bg-background/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-open-sans appearance-none"
                   value={selectedService}
                   onChange={(e) => setSelectedService(e.target.value)}
                 >
-                  <option value="" disabled>Select a service</option>
-                  <option value="Web Development">Web Development</option>
-                  <option value="Mobile Apps">Mobile Apps</option>
-                  <option value="Software Dev">Software Dev</option>
-                  <option value="UI/UX Design">UI/UX Design</option>
-                  <option value="Infrastructure">Infrastructure</option>
-                  <option value="Cybersecurity">Cybersecurity</option>
-                  <option value="Artificial Intelligence">Artificial Intelligence</option>
-                  <option value="Automation">Automation</option>
-                  <option value="Other">Other</option>
+                  <option value="" disabled>Selecciona un servicio</option>
+                  <option value="Web Development">Desarrollo Web</option>
+                  <option value="Mobile Apps">Aplicaciones Móviles</option>
+                  <option value="Software Dev">Desarrollo de Software</option>
+                  <option value="UI/UX Design">Diseño UI/UX</option>
+                  <option value="Infrastructure">Infraestructura</option>
+                  <option value="Cybersecurity">Ciberseguridad</option>
+                  <option value="Artificial Intelligence">Inteligencia Artificial</option>
+                  <option value="Automation">Automatización</option>
+                  <option value="Other">Otro</option>
                 </select>
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-medium font-kanit">Tell us about your project</label>
+                <label htmlFor="message" className="text-sm font-medium font-kanit">Háblanos de tu proyecto</label>
                 <textarea 
                   id="message" 
                   rows={4}
                   className="w-full bg-background/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-open-sans resize-none"
-                  placeholder="I want to build..."
+                  placeholder="Quiero construir..."
                 ></textarea>
               </div>
 
@@ -139,11 +137,11 @@ export function Contact() {
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="w-5 h-5 animate-spin" /> Processing...
+                    <Loader2 className="w-5 h-5 animate-spin" /> Procesando...
                   </>
                 ) : (
                   <>
-                    Send Message <Send className="w-5 h-5" />
+                    Enviar Mensaje <Send className="w-5 h-5" />
                   </>
                 )}
               </button>

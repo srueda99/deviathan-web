@@ -21,34 +21,28 @@ export function Footer() {
   return (
     <footer className="bg-secondary/50 border-t border-white/5 py-12">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          <div className="col-span-1 md:col-span-2">
-            <Link href="#home" className="relative h-12 w-48 block mb-4">
-              <Image
-                src="/logos/logoAndname-white.svg"
-                alt="Deviathan Logo"
-                fill
-                className="object-contain"
-              />
-            </Link>
-            <p className="text-foreground/60 max-w-md font-open-sans">
-              Transforming ideas into digital reality. We are a full-service tech agency 
-              specializing in software development, design, and digital innovation.
-            </p>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mb-8">
+          <Link href="#home" className="relative h-36 w-120 block">
+            <Image
+              src="/logos/logo-secondary.svg"
+              alt="Deviathan Logo"
+              fill
+              className="object-contain"
+            />
+          </Link>
           
           <div>
-            <h3 className="text-lg font-kanit font-semibold mb-4 text-foreground">Services</h3>
+            <h3 className="text-lg font-kanit font-semibold mb-4 text-foreground">Servicios</h3>
             <ul className="space-y-2 text-foreground/60 font-open-sans">
-              <li><Link href="#services" className="hover:text-primary transition-colors">Web Development</Link></li>
-              <li><Link href="#services" className="hover:text-primary transition-colors">Mobile Apps</Link></li>
-              <li><Link href="#services" className="hover:text-primary transition-colors">UI/UX Design</Link></li>
-              <li><Link href="#services" className="hover:text-primary transition-colors">Cybersecurity</Link></li>
+              <li><Link href="#services" className="hover:text-primary transition-colors">Desarrollo Web</Link></li>
+              <li><Link href="#services" className="hover:text-primary transition-colors">Aplicaciones Móviles</Link></li>
+              <li><Link href="#services" className="hover:text-primary transition-colors">Diseño UI/UX</Link></li>
+              <li><Link href="#services" className="hover:text-primary transition-colors">Ciberseguridad</Link></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-lg font-kanit font-semibold mb-4 text-foreground">Connect</h3>
+            <h3 className="text-lg font-kanit font-semibold mb-4 text-foreground">Nuestras Redes</h3>
             <div className="flex gap-4">
               <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-primary transition-colors text-foreground">
                 <TwitterIcon />
@@ -67,7 +61,7 @@ export function Footer() {
         </div>
         
         <div className="pt-8 border-t border-white/10 text-center text-foreground/40 text-sm font-open-sans">
-          <p>&copy; {new Date().getFullYear()} Deviathan. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Deviathan. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>

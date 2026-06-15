@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Code2 } from "lucide-react";
+import { ArrowRight, Code2, Bot, Sparkles, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 
 export function Hero() {
@@ -12,7 +12,7 @@ export function Hero() {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Background ambient elements */}
+      {/* Title and description */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px] -z-10 mix-blend-screen"></div>
       <div className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-secondary/40 rounded-full blur-[150px] -z-10 mix-blend-screen"></div>
 
@@ -29,13 +29,13 @@ export function Hero() {
             <span className="text-sm font-medium tracking-wide">Next-Gen Digital Solutions</span>
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold font-kanit leading-tight">
-            We <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">Build</span><br/>
-            Your Future
+          <h1 className="text-5xl md:text-6xl font-bold font-kanit leading-tight">
+            Construimos el <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">Futuro Digital</span><br/>
+            de tu Negocio
           </h1>
           
           <p className="text-lg md:text-xl text-foreground/70 font-open-sans max-w-lg">
-            Stop struggling with outdated tech. We turn complex problems into elegant, scalable, and secure digital realities.
+            Desarrollamos soluciones de software a la medida para ayudar a tu empresa a crecer y destacarse.
           </p>
           
           <div className="flex flex-wrap gap-4 mt-4">
@@ -45,7 +45,7 @@ export function Hero() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Explore Services <ArrowRight size={20} />
+              Nuestros Servicios <ArrowRight size={20} />
             </motion.a>
             <motion.a 
               href="#contact"
@@ -53,7 +53,7 @@ export function Hero() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Let&apos;s Talk
+              Hablemos
             </motion.a>
           </div>
         </motion.div>
@@ -67,7 +67,7 @@ export function Hero() {
           style={{ y: y1 }}
         >
           <div className="absolute inset-0 flex items-center justify-center">
-            {/* Main Logo Graphic element */}
+            {/* Main Logo */}
             <motion.div 
               className="relative w-400 h-400 md:w-500 md:h-500"
               animate={{ 
@@ -91,7 +91,7 @@ export function Hero() {
             </motion.div>
           </div>
           
-          {/* Floating code elements */}
+          {/* Floating Element: Code Snippet */}
           <motion.div 
             className="absolute top-1/4 left-0 bg-secondary/80 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-xl"
             style={{ y: y2 }}
@@ -106,14 +106,55 @@ export function Hero() {
             </pre>
           </motion.div>
 
+          {/* Floating Element: Infrastructure */}
           <motion.div 
-            className="absolute bottom-1/4 right-0 bg-secondary/80 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-xl"
+            className="absolute bottom-1/4 right-0 bg-secondary/80 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-xl z-20"
             animate={{ y: [0, 20, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
           >
             <div className="flex items-center gap-3">
               <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse"></div>
-              <span className="text-sm font-kanit">Systems Operational</span>
+              <span className="text-sm font-kanit">Infraestructura Operacional</span>
+            </div>
+          </motion.div>
+
+          {/* Floating Element: AI Chatbot */}
+          <motion.div 
+            className="absolute top-10 right-10 bg-secondary/80 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-xl max-w-[200px]"
+            animate={{ y: [0, -15, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          >
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+                <Bot size={16} className="text-primary" />
+              </div>
+              <span className="text-xs font-semibold font-kanit">AI Chatbot</span>
+            </div>
+            <div className="space-y-2">
+              <div className="h-2 bg-white/10 rounded w-full"></div>
+              <div className="h-2 bg-white/10 rounded w-4/5"></div>
+              <div className="flex items-center gap-1 mt-1 text-[10px] text-primary">
+                <Sparkles size={10} /> Generando Solución...
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Floating Element: Security */}
+          <motion.div 
+            className="absolute bottom-10 left-10 bg-secondary/80 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-xl"
+            animate={{ y: [0, 15, 0] }}
+            transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          >
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <ShieldCheck size={18} className="text-green-400" />
+                <span className="text-xs font-kanit text-white/80">Seguridad Óptima</span>
+              </div>
+              <div className="flex gap-1">
+                <div className="w-6 h-1 bg-green-400/50 rounded-full"></div>
+                <div className="w-6 h-1 bg-green-400/80 rounded-full"></div>
+                <div className="w-6 h-1 bg-green-400 rounded-full shadow-[0_0_8px_rgba(74,222,128,0.5)]"></div>
+              </div>
             </div>
           </motion.div>
         </motion.div>

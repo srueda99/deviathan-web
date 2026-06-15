@@ -18,10 +18,10 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "Services", href: "#services" },
-    { name: "About Us", href: "#about" },
-    { name: "Contact", href: "#contact" },
+    { name: "Inicio", href: "#home" },
+    { name: "Servicios", href: "#services" },
+    { name: "Sobre Nosotros", href: "#about" },
+    { name: "Contacto", href: "#contact" },
   ];
 
   return (
@@ -59,7 +59,7 @@ export function Navbar() {
             href="#contact"
             className="px-5 py-2 text-xl font-semibold rounded-full bg-primary text-foreground hover:bg-primary/90 transition-colors"
           >
-            Get Started
+            Comenzar
           </Link>
         </nav>
 

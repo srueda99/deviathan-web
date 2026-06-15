@@ -17,43 +17,43 @@ import Link from "next/link";
 const services = [
   {
     icon: <Globe className="w-8 h-8" />,
-    title: "Web Development",
-    description: "Fast, responsive, and stunning websites tailored to your brand.",
+    title: "Desarrollo Web",
+    description: "Creamos sitios web y aplicaciones modernas, rápidas y adaptadas a las necesidades de tu negocio.",
   },
   {
     icon: <Smartphone className="w-8 h-8" />,
-    title: "Mobile Apps",
-    description: "Native and cross-platform mobile experiences that users love.",
+    title: "Aplicaciones Móviles",
+    description: "Diseñamos aplicaciones para iOS y Android con experiencias intuitivas y alto rendimiento.",
   },
   {
     icon: <Cpu className="w-8 h-8" />,
-    title: "Software Dev",
-    description: "Custom software solutions to streamline your business operations.",
+    title: "Software a la medida",
+    description: "Soluciones digitales adaptadas a las necesidades de tu negocio.",
   },
   {
     icon: <PenTool className="w-8 h-8" />,
-    title: "UI/UX Design",
-    description: "Intuitive and beautiful interfaces designed for human interaction.",
+    title: "Diseño UI/UX",
+    description: "Diseñamos interfaces atractivas y fáciles de usar para ofrecer experiencias memorables.",
   },
   {
     icon: <Server className="w-8 h-8" />,
-    title: "Infrastructure",
-    description: "Robust, scalable, and modern cloud infrastructure for your enterprise.",
+    title: "Infraestructura",
+    description: "Implementamos infraestructura segura y escalable para acompañar el crecimiento de tu negocio.",
   },
   {
     icon: <ShieldCheck className="w-8 h-8" />,
-    title: "Cybersecurity",
-    description: "Military-grade protection for your data and digital assets.",
+    title: "Ciberseguridad",
+    description: "Protección de alto nivel para tus datos y activos digitales.",
   },
   {
     icon: <Bot className="w-8 h-8" />,
-    title: "Artificial Intelligence",
-    description: "Smart integrations and ML models to give you a competitive edge.",
+    title: "Inteligencia Artificial",
+    description: "Integramos herramientas de IA para automatizar procesos y generar nuevas oportunidades.",
   },
   {
     icon: <Zap className="w-8 h-8" />,
-    title: "Automation",
-    description: "Eliminate repetitive tasks and boost productivity with custom workflows.",
+    title: "Automatización",
+    description: "Eliminamos tareas repetitivas y mejoramos la productividad con flujos de trabajo automatizados.",
   },
 ];
 
@@ -83,7 +83,7 @@ export function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            What We <span className="text-primary">Do</span>
+            Nuestros <span className="text-primary">Servicios</span>
           </motion.h2>
           <motion.p 
             className="text-foreground/70 font-open-sans"
@@ -92,7 +92,7 @@ export function Services() {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            We deliver end-to-end technological solutions that transform businesses and accelerate growth.
+            Nos encargamos de cada detalle para que puedas concentrarte en lo que más importa:<br/><span className="text-primary">tu negocio</span>.
           </motion.p>
         </div>
 
@@ -121,7 +121,7 @@ export function Services() {
                 href={`#contact?service=${encodeURIComponent(service.title)}`}
                 className="inline-flex items-center text-sm font-kanit font-medium text-primary group-hover:text-white transition-colors"
               >
-                I&apos;m interested <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                Me interesa <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </motion.div>
           ))}
