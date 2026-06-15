@@ -32,7 +32,7 @@ const integrations = [
 
 export function TechStack() {
   return (
-    <section className="py-24 relative overflow-hidden bg-background border-y border-white/5">
+    <section className="py-24 relative overflow-hidden bg-background border-y border-foreground/5">
       <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10"></div>
       <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10"></div>
 
@@ -59,17 +59,15 @@ export function TechStack() {
           {[...technologies, ...technologies].map((tech, i) => (
             <motion.div 
               key={`tech-${i}`} 
-              className="inline-flex flex-col justify-center px-8 py-4 bg-secondary/30 border border-white/10 rounded-2xl min-w-[240px] cursor-default relative overflow-hidden group"
+              className="inline-flex flex-col justify-center px-8 py-4 bg-secondary/30 border border-foreground/10 rounded-2xl min-w-[240px] cursor-default relative overflow-hidden group"
               whileHover={{ 
                 scale: 1.05,
-                borderColor: "rgba(118, 104, 231, 0.5)",
-                backgroundColor: "rgba(17, 9, 65, 0.8)",
-                boxShadow: "0 10px 30px -10px rgba(118, 104, 231, 0.3)"
+                borderColor: "var(--primary)",
+                backgroundColor: "var(--secondary)",
+                boxShadow: "0 10px 30px -10px var(--primary)"
               }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              {/* Shine effect on hover */}
-              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:animate-[shimmer_1.5s_infinite]" />
               <span className="text-lg font-kanit font-semibold text-foreground relative z-10 group-hover:text-primary transition-colors">{tech.name}</span>
               <span className="text-xs font-open-sans text-primary/80 uppercase tracking-wider relative z-10">{tech.type}</span>
             </motion.div>
@@ -91,17 +89,16 @@ export function TechStack() {
           {[...integrations, ...integrations].map((app, i) => (
             <motion.div 
               key={`app-${i}`} 
-              className="inline-flex flex-col justify-center px-8 py-4 bg-white/5 border border-white/10 rounded-2xl min-w-[240px] cursor-default relative overflow-hidden group"
+              className="inline-flex flex-col justify-center px-8 py-4 bg-foreground/5 border border-foreground/10 rounded-2xl min-w-[240px] cursor-default relative overflow-hidden group"
               whileHover={{ 
                 scale: 1.05,
-                borderColor: "rgba(247, 247, 247, 0.3)",
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-                boxShadow: "0 10px 30px -10px rgba(255, 255, 255, 0.1)"
+                borderColor: "var(--primary)",
+                backgroundColor: "var(--secondary)",
+                boxShadow: "0 10px 30px -10px var(--primary)"
               }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent group-hover:animate-[shimmer_1.5s_infinite]" />
-              <span className="text-lg font-kanit font-semibold text-foreground relative z-10 group-hover:text-white transition-colors">{app.name}</span>
+              <span className="text-lg font-kanit font-semibold text-foreground relative z-10 group-hover:text-primary transition-colors">{app.name}</span>
               <span className="text-xs font-open-sans text-foreground/50 uppercase tracking-wider relative z-10 group-hover:text-foreground/80 transition-colors">{app.type}</span>
             </motion.div>
           ))}

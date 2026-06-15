@@ -61,7 +61,7 @@ export function Contact() {
         </div>
 
         <motion.div
-          className="bg-secondary/40 border border-white/10 rounded-3xl p-8 md:p-12 backdrop-blur-sm"
+          className="bg-secondary/40 border border-foreground/10 rounded-3xl p-8 md:p-12 backdrop-blur-sm"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -86,7 +86,7 @@ export function Contact() {
                     required
                     onFocus={() => setFocusedField('name')}
                     onBlur={() => setFocusedField(null)}
-                    className="w-full bg-background/30 border-b-2 border-x-0 border-t-0 border-white/10 px-0 py-3 focus:outline-none focus:ring-0 focus:border-primary transition-all font-open-sans placeholder:text-foreground/20 rounded-none"
+                    className="w-full bg-background/30 border-b-2 border-x-0 border-t-0 border-foreground/10 px-0 py-3 focus:outline-none focus:ring-0 focus:border-primary transition-all font-open-sans placeholder:text-foreground/20 rounded-none"
                     placeholder="John Doe"
                   />
                 </div>
@@ -98,7 +98,7 @@ export function Contact() {
                     required
                     onFocus={() => setFocusedField('email')}
                     onBlur={() => setFocusedField(null)}
-                    className="w-full bg-background/30 border-b-2 border-x-0 border-t-0 border-white/10 px-0 py-3 focus:outline-none focus:ring-0 focus:border-primary transition-all font-open-sans placeholder:text-foreground/20 rounded-none"
+                    className="w-full bg-background/30 border-b-2 border-x-0 border-t-0 border-foreground/10 px-0 py-3 focus:outline-none focus:ring-0 focus:border-primary transition-all font-open-sans placeholder:text-foreground/20 rounded-none"
                     placeholder="john@ejemplo.com"
                   />
                 </div>
@@ -110,7 +110,7 @@ export function Contact() {
                   id="service" 
                   onFocus={() => setFocusedField('service')}
                   onBlur={() => setFocusedField(null)}
-                  className="w-full bg-background/30 border-b-2 border-x-0 border-t-0 border-white/10 px-0 py-3 focus:outline-none focus:ring-0 focus:border-primary transition-all font-open-sans appearance-none rounded-none cursor-pointer"
+                  className="w-full bg-background/30 border-b-2 border-x-0 border-t-0 border-foreground/10 px-0 py-3 focus:outline-none focus:ring-0 focus:border-primary transition-all font-open-sans appearance-none rounded-none cursor-pointer"
                   value={selectedService}
                   onChange={(e) => setSelectedService(e.target.value)}
                 >
@@ -134,17 +134,17 @@ export function Contact() {
                   rows={3}
                   onFocus={() => setFocusedField('message')}
                   onBlur={() => setFocusedField(null)}
-                  className="w-full bg-background/30 border-b-2 border-x-0 border-t-0 border-white/10 px-0 py-3 focus:outline-none focus:ring-0 focus:border-primary transition-all font-open-sans resize-none placeholder:text-foreground/20 rounded-none"
+                  className="w-full bg-background/30 border-b-2 border-x-0 border-t-0 border-foreground/10 px-0 py-3 focus:outline-none focus:ring-0 focus:border-primary transition-all font-open-sans resize-none placeholder:text-foreground/20 rounded-none"
                   placeholder="Quiero construir..."
                 ></textarea>
               </div>
 
               <motion.button 
-                type="submit" 
+                type="submit"
                 disabled={isSubmitting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-white/5 border border-white/10 hover:bg-primary hover:border-primary text-white font-kanit font-semibold py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 mt-4"
+                className="w-full bg-foreground/5 border border-foreground/10 hover:bg-primary hover:border-primary text-foreground font-kanit font-semibold py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 mt-4"
               >
                 {isSubmitting ? (
                   <>

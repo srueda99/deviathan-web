@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 
 const benefits = [
   "Si tienes una página web, podemos mejorarla.",
@@ -17,6 +18,12 @@ const benefits = [
 
 export function About() {
   const [isHovered, setIsHovered] = useState(false);
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <section id="about" className="py-24 relative bg-secondary/20">
@@ -44,15 +51,17 @@ export function About() {
                 {/* Glitch Hover Effect */}
                 <div className="absolute w-[275%] h-[275%] -top-[60%] -left-[60%] origin-center">
                   {/* Logo */}
-                  <Image 
-                    src="/logos/logo-white.svg"
-                    alt="Deviathan Core"
-                    fill
-                    className={`object-contain opacity-90 drop-shadow-[0_0_30px_rgba(118,104,231,0.3)] transition-all duration-300 ${isHovered ? 'blur-[1px] opacity-70' : ''}`}
-                  />
+                  {mounted && (
+                    <Image 
+                      src={resolvedTheme === 'dark' ? "/logos/logo-white.svg" : "/logos/logo-black.svg"}
+                      alt="Deviathan Core"
+                      fill
+                      className={`object-contain opacity-90 drop-shadow-[0_0_30px_rgba(118,104,231,0.3)] transition-all duration-300 ${isHovered ? 'blur-[1px] opacity-70' : ''}`}
+                    />
+                  )}
                   
                   {/* Glitch Layer 1 */}
-                  {isHovered && (
+                  {isHovered && mounted && (
                     <div 
                       className="absolute inset-0 opacity-80 mix-blend-screen"
                       style={{ 
@@ -61,7 +70,7 @@ export function About() {
                       }}
                     >
                       <Image 
-                        src="/logos/logo-white.svg"
+                        src={resolvedTheme === 'dark' ? "/logos/logo-white.svg" : "/logos/logo-black.svg"}
                         alt=""
                         fill
                         className="object-contain"
@@ -70,7 +79,7 @@ export function About() {
                   )}
 
                   {/* Glitch Layer 2 */}
-                  {isHovered && (
+                  {isHovered && mounted && (
                     <div 
                       className="absolute inset-0 opacity-80 mix-blend-screen"
                       style={{ 
@@ -79,7 +88,7 @@ export function About() {
                       }}
                     >
                       <Image 
-                        src="/logos/logo-white.svg"
+                        src={resolvedTheme === 'dark' ? "/logos/logo-white.svg" : "/logos/logo-black.svg"}
                         alt=""
                         fill
                         className="object-contain"
@@ -134,7 +143,7 @@ export function About() {
               viewport={{ once: true }}
               transition={{ delay: 0.8 }}
             >
-              <p className="font-kanit font-medium text-lg text-white">
+              <p className="font-kanit font-medium text-lg text-foreground">
                 ¿El Resultado? <span className="text-primary/90">Mayor eficiencia, costos reducidos y una ventaja competitiva evidente.</span>
               </p>
             </motion.div>

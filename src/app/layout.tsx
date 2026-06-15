@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Kanit, Open_Sans } from "next/font/google";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
 const kanit = Kanit({
@@ -14,7 +15,7 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Deviathan | Software Services",
+  title: "Deviathan | Software Company",
   description: "Deviathan offers premium software development, UI/UX design, cybersecurity, AI, and IT infrastructure services.",
 };
 
@@ -24,11 +25,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth overflow-x-hidden">
+    <html lang="es" className="scroll-smooth overflow-x-hidden" suppressHydrationWarning>
       <body
         className={`${kanit.variable} ${openSans.variable} antialiased selection:bg-primary selection:text-foreground overflow-x-hidden`}
       >
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

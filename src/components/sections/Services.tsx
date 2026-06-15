@@ -108,9 +108,9 @@ export function Services() {
             <motion.div 
               key={index} 
               variants={item}
-              className="group relative bg-secondary/30 border border-white/5 p-6 rounded-2xl hover:bg-secondary/50 transition-colors"
+              className="group relative bg-secondary/30 border border-foreground/5 p-6 rounded-2xl hover:bg-secondary/50 transition-colors"
             >
-              <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-6 group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+              <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-6 group-hover:scale-110 group-hover:bg-primary group-hover:text-foreground transition-all duration-300">
                 {service.icon}
               </div>
               <h3 className="text-xl font-kanit font-semibold mb-3">{service.title}</h3>
@@ -120,7 +120,7 @@ export function Services() {
               
               <Link 
                 href={`#contact?service=${encodeURIComponent(service.title)}`}
-                className="inline-flex items-center text-sm font-kanit font-medium text-primary group-hover:text-white transition-colors"
+                className="inline-flex items-center text-sm font-kanit font-medium text-primary group-hover:text-foreground transition-colors"
               >
                 Me interesa <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>

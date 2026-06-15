@@ -24,7 +24,7 @@ export function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           style={{ opacity }}
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 w-fit backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-foreground/5 border border-foreground/10 w-fit backdrop-blur-sm">
             <Code2 size={16} className="text-primary" />
             <span className="text-sm font-medium tracking-wide">Next-Gen Digital Solutions</span>
           </div>
@@ -41,7 +41,7 @@ export function Hero() {
           <div className="flex flex-wrap gap-4 mt-4">
             <motion.a 
               href="#services"
-              className="px-8 py-4 bg-primary text-white rounded-full font-semibold flex items-center gap-2 hover:bg-primary/90 transition-all shadow-[0_0_20px_rgba(118,104,231,0.4)] hover:shadow-[0_0_30px_rgba(118,104,231,0.6)]"
+              className="px-8 py-4 bg-primary text-foreground rounded-full font-semibold flex items-center gap-2 hover:bg-primary/90 transition-all shadow-[0_0_20px_rgba(118,104,231,0.4)] hover:shadow-[0_0_30px_rgba(118,104,231,0.6)]"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -49,7 +49,7 @@ export function Hero() {
             </motion.a>
             <motion.a 
               href="#contact"
-              className="px-8 py-4 bg-white/5 border border-white/10 text-white rounded-full font-semibold hover:bg-white/10 transition-all backdrop-blur-sm"
+              className="px-8 py-4 bg-foreground/5 border border-foreground/10 text-foreground rounded-full font-semibold hover:bg-foreground/10 transition-all backdrop-blur-sm"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -93,7 +93,7 @@ export function Hero() {
           
           {/* Floating Element: Code Snippet */}
           <motion.div 
-            className="absolute top-1/4 left-0 bg-secondary/80 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-xl"
+            className="absolute top-1/4 left-0 bg-background/80 backdrop-blur-md border border-foreground/10 p-4 rounded-xl shadow-xl"
             style={{ y: y2 }}
             animate={{ y: [0, -20, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -108,7 +108,7 @@ export function Hero() {
 
           {/* Floating Element: Infrastructure */}
           <motion.div 
-            className="absolute bottom-1/4 right-0 bg-secondary/80 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-xl z-20"
+            className="absolute bottom-1/4 right-0 bg-background/80 backdrop-blur-md border border-foreground/10 p-4 rounded-xl shadow-xl z-20"
             animate={{ y: [0, 20, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
           >
@@ -120,7 +120,7 @@ export function Hero() {
 
           {/* Floating Element: AI Chatbot */}
           <motion.div 
-            className="absolute top-10 right-10 bg-secondary/80 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-xl max-w-[200px]"
+            className="absolute top-10 right-10 bg-background/80 backdrop-blur-md border border-foreground/10 p-4 rounded-xl shadow-xl max-w-[200px]"
             animate={{ y: [0, -15, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
           >
@@ -131,8 +131,8 @@ export function Hero() {
               <span className="text-xs font-semibold font-kanit">AI Chatbot</span>
             </div>
             <div className="space-y-2">
-              <div className="h-2 bg-white/10 rounded w-full"></div>
-              <div className="h-2 bg-white/10 rounded w-4/5"></div>
+              <div className="h-2 bg-foreground/10 rounded w-full"></div>
+              <div className="h-2 bg-foreground/10 rounded w-4/5"></div>
               <div className="flex items-center gap-1 mt-1 text-[10px] text-primary">
                 <Sparkles size={10} /> Generando Solución...
               </div>
@@ -141,14 +141,14 @@ export function Hero() {
 
           {/* Floating Element: Security */}
           <motion.div 
-            className="absolute bottom-10 left-10 bg-secondary/80 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-xl"
+            className="absolute bottom-10 left-10 bg-background/80 backdrop-blur-md border border-foreground/10 p-4 rounded-xl shadow-xl"
             animate={{ y: [0, 15, 0] }}
             transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
           >
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
                 <ShieldCheck size={18} className="text-green-400" />
-                <span className="text-xs font-kanit text-white/80">Seguridad Óptima</span>
+                <span className="text-xs font-kanit text-foreground/80">Seguridad Óptima</span>
               </div>
               <div className="flex gap-1">
                 <div className="w-6 h-1 bg-green-400/50 rounded-full"></div>

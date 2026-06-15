@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
 
 const GithubIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A4.8 4.8 0 0 0 8 18v4"></path></svg>
@@ -18,18 +22,27 @@ const InstagramIcon = () => (
 );
 
 export function Footer() {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
-    <footer className="bg-secondary/50 border-t border-white/5 py-12">
+    <footer className="bg-secondary/50 border-t border-foreground/5 py-12">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-8">
           <div className="col-span-1 md:col-span-2 flex justify-center md:justify-start items-center">
             <Link href="#home" className="relative h-24 w-64 lg:h-40 lg:w-96 block -ml-4 md:-ml-6">
-              <Image
-                src="/logos/logoAndname-white.svg"
-                alt="Deviathan Logo"
-                fill
-                className="object-contain object-center md:object-left"
-              />
+              {mounted && (
+                <Image
+                  src={resolvedTheme === 'dark' ? "/logos/logoAndname-white.svg" : "/logos/logoAndname-black.svg"}
+                  alt="Deviathan Logo"
+                  fill
+                  className="object-contain object-center md:object-left"
+                />
+              )}
             </Link>
           </div>
           
@@ -46,23 +59,23 @@ export function Footer() {
           <div className="flex flex-col items-center md:items-start">
             <h3 className="text-lg font-kanit font-semibold mb-4 text-foreground">Nuestras Redes</h3>
             <div className="flex gap-4">
-              <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-primary transition-colors text-foreground">
+              <a href="#" className="p-2 bg-foreground/5 rounded-full hover:bg-primary transition-colors text-foreground">
                 <TwitterIcon />
               </a>
-              <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-primary transition-colors text-foreground">
+              <a href="#" className="p-2 bg-foreground/5 rounded-full hover:bg-primary transition-colors text-foreground">
                 <LinkedinIcon />
               </a>
-              <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-primary transition-colors text-foreground">
+              <a href="#" className="p-2 bg-foreground/5 rounded-full hover:bg-primary transition-colors text-foreground">
                 <GithubIcon />
               </a>
-              <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-primary transition-colors text-foreground">
+              <a href="#" className="p-2 bg-foreground/5 rounded-full hover:bg-primary transition-colors text-foreground">
                 <InstagramIcon />
               </a>
             </div>
           </div>
         </div>
         
-        <div className="pt-8 border-t border-white/10 text-center text-foreground/40 text-sm font-open-sans">
+        <div className="pt-8 border-t border-foreground/10 text-center text-foreground/40 text-sm font-open-sans">
           <p>&copy; {new Date().getFullYear()} Deviathan. Todos los derechos reservados.</p>
         </div>
       </div>

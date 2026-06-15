@@ -4,12 +4,17 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
@@ -35,17 +40,20 @@ export function Navbar() {
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="#home" className="relative h-16 w-48 md:h-28 md:w-80 flex items-center shrink-0">
-          <Image
-            src="/logos/logoAndname-white.svg"
-            alt="Deviathan Logo"
-            fill
-            className="object-contain object-left"
-            priority
-          />
+          {mounted && (
+            <Image
+              src={resolvedTheme === 'dark' ? "/logos/logoAndname-white.svg" : "/logos/logoAndname-black.svg"}
+              alt="Deviathan Logo"
+              fill
+              className="object-contain object-left"
+              priority
+            />
+          )}
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+          <ThemeToggle />
           {navLinks.map((link) => (
             <Link
               key={link.name}
@@ -64,23 +72,26 @@ export function Navbar() {
         </nav>
 
         {/* Mobile Nav Toggle */}
-        <button
-          className="lg:hidden text-foreground ml-4 mr-2 shrink-0 relative w-8 h-8 flex items-center justify-center focus:outline-none z-50"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle Menu"
-        >
-          <div className="flex flex-col justify-between w-6 h-5 transform transition-all duration-300 origin-center overflow-hidden">
-            <div className={`bg-white h-[2px] w-7 transform transition-all duration-300 origin-left ${isMobileMenuOpen ? 'rotate-[42deg] w-8' : ''}`}></div>
-            <div className={`bg-white h-[2px] w-7 rounded transform transition-all duration-300 ${isMobileMenuOpen ? '-translate-x-10 opacity-0' : ''}`}></div>
-            <div className={`bg-white h-[2px] w-7 transform transition-all duration-300 origin-left ${isMobileMenuOpen ? '-rotate-[42deg] w-8' : ''}`}></div>
-          </div>
-        </button>
+        <div className="flex items-center lg:hidden gap-2">
+          <ThemeToggle />
+          <button
+            className="text-foreground ml-2 mr-2 shrink-0 relative w-8 h-8 flex items-center justify-center focus:outline-none z-50"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle Menu"
+          >
+            <div className="flex flex-col justify-between w-6 h-5 transform transition-all duration-300 origin-center overflow-hidden">
+              <div className={`bg-foreground h-[2px] w-7 transform transition-all duration-300 origin-left ${isMobileMenuOpen ? 'rotate-[42deg] w-8' : ''}`}></div>
+              <div className={`bg-foreground h-[2px] w-7 rounded transform transition-all duration-300 ${isMobileMenuOpen ? '-translate-x-10 opacity-0' : ''}`}></div>
+              <div className={`bg-foreground h-[2px] w-7 transform transition-all duration-300 origin-left ${isMobileMenuOpen ? '-rotate-[42deg] w-8' : ''}`}></div>
+            </div>
+          </button>
+        </div>
       </div>
 
       {/* Mobile Nav Menu */}
       {isMobileMenuOpen && (
         <motion.div
-          className="lg:hidden bg-background/90 backdrop-blur-md border-t border-white/5 shadow-2xl h-[50vh] overflow-y-auto"
+          className="lg:hidden bg-background/90 backdrop-blur-md border-t border-foreground/5 shadow-2xl h-[50vh] overflow-y-auto"
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "50vh" }}
           exit={{ opacity: 0, height: 0 }}
@@ -97,7 +108,7 @@ export function Navbar() {
                   {link.name}
                 </Link>
                 {index < navLinks.length - 1 && (
-                  <div className="h-px bg-white/10 w-[80%] mt-4" />
+                  <div className="h-px bg-foreground/10 w-[80%] mt-4" />
                 )}
               </div>
             ))}
