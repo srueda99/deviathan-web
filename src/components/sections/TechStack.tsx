@@ -59,12 +59,11 @@ export function TechStack() {
           {[...technologies, ...technologies].map((tech, i) => (
             <motion.div 
               key={`tech-${i}`} 
-              className="inline-flex flex-col justify-center px-8 py-4 bg-secondary/30 border border-foreground/10 rounded-2xl min-w-[240px] cursor-default relative overflow-hidden group"
+              className="inline-flex flex-col justify-center px-8 py-4 bg-secondary/30 border border-foreground/30 rounded-2xl min-w-[240px] cursor-default relative overflow-hidden group"
               whileHover={{ 
                 scale: 1.05,
                 borderColor: "var(--primary)",
                 backgroundColor: "var(--secondary)",
-                boxShadow: "0 10px 30px -10px var(--primary)"
               }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
@@ -89,12 +88,11 @@ export function TechStack() {
           {[...integrations, ...integrations].map((app, i) => (
             <motion.div 
               key={`app-${i}`} 
-              className="inline-flex flex-col justify-center px-8 py-4 bg-foreground/5 border border-foreground/10 rounded-2xl min-w-[240px] cursor-default relative overflow-hidden group"
+              className="inline-flex flex-col justify-center px-8 py-4 bg-foreground/5 border border-accent rounded-2xl min-w-[240px] cursor-default relative overflow-hidden group"
               whileHover={{ 
                 scale: 1.05,
                 borderColor: "var(--primary)",
                 backgroundColor: "var(--secondary)",
-                boxShadow: "0 10px 30px -10px var(--primary)"
               }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >

@@ -82,7 +82,7 @@ export function Navbar() {
               key={link.name}
               href={link.href}
               onClick={(e) => scrollToSection(e, link.href)}
-              className="text-lg xl:text-xl font-medium text-foreground/80 hover:text-primary transition-colors font-kanit cursor-pointer"
+              className="text-lg xl:text-xl font-medium text-foreground/80 hover:text-accent transition-colors duration-300 font-kanit cursor-pointer"
             >
               {link.name}
             </a>
@@ -90,7 +90,7 @@ export function Navbar() {
           <a
             href="#contact"
             onClick={(e) => scrollToSection(e, "#contact")}
-            className="px-5 py-2 text-lg xl:text-xl font-semibold rounded-full bg-primary text-foreground hover:bg-primary/90 transition-colors cursor-pointer"
+            className="px-5 py-2 text-lg xl:text-xl font-semibold rounded-full bg-primary text-foreground hover:bg-accent/90 transition-colors cursor-pointer"
           >
             Comenzar
           </a>
@@ -143,7 +143,7 @@ export function Navbar() {
               onClick={(e) => scrollToSection(e, "#contact")}
               className="mt-4 px-6 py-3 text-center text-lg font-semibold rounded-full bg-primary text-foreground hover:bg-primary/90 transition-colors cursor-pointer"
             >
-              Get Started
+              Comenzar
             </a>
           </div>
         </motion.div>

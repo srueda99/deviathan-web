@@ -51,7 +51,7 @@ export function Footer() {
             <ul className="space-y-2 text-foreground/60 font-open-sans">
               <li><Link href="#services" className="hover:text-primary transition-colors">Desarrollo Web</Link></li>
               <li><Link href="#services" className="hover:text-primary transition-colors">Aplicaciones Móviles</Link></li>
-              <li><Link href="#services" className="hover:text-primary transition-colors">Diseño UI/UX</Link></li>
+              <li><Link href="#services" className="hover:text-primary transition-colors">Automatizaciones</Link></li>
               <li><Link href="#services" className="hover:text-primary transition-colors">Ciberseguridad</Link></li>
             </ul>
           </div>

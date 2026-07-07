@@ -1,16 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { CheckCircle2 } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { CheckCircle2, Hexagon, Code2Icon } from "lucide-react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 
 const benefits = [
-  "Si tienes una página web, podemos mejorarla.",
   "Si tienes una idea, podemos desarrollarla.",
-  "Si tienes un problema, podemos resolverlo.",
   "Si tienes tareas repetitivas, podemos automatizarlas.",
+  "Si tienes una página web, podemos mejorarla.",
   "Si quieres más seguridad, podemos añadirla.",
   "Si quieres usar IA, podemos ayudarte.",
   "Si quieres llevar tu sistema a la nube, podemos hacerlo por ti.",
@@ -20,85 +19,75 @@ export function About() {
   const [isHovered, setIsHovered] = useState(false);
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1.2]);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   return (
-    <section id="about" className="py-24 relative bg-secondary/20">
-      <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+    <section id="about" className="py-32 relative bg-secondary/10 overflow-hidden border-y border-foreground/5">
+      
+      {/* Dynamic Background Noise/Pattern */}
+      <div className="absolute inset-0 opacity-[0.03] z-0" style={{ backgroundImage: 'radial-gradient(circle at center, var(--foreground) 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
           
           <motion.div 
-            className="relative"
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            className="relative order-2 lg:order-1"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
           >
-            <div className="relative w-full aspect-square max-w-md mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/40 to-transparent rounded-full blur-3xl mix-blend-screen"></div>
+            <div className="relative w-full aspect-square max-w-lg mx-auto">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--primary)_0%,transparent_70%)] opacity-30 blur-2xl animate-pulse"></div>
+              
               <motion.div 
-                className="absolute inset-4 rounded-3xl bg-background/50 backdrop-blur-xl flex items-center justify-center overflow-hidden cursor-pointer group"
-                animate={{ 
-                  boxShadow: ["0 0 0px rgba(118,104,231,0)", "0 0 40px rgba(118,104,231,0.2)", "0 0 0px rgba(118,104,231,0)"]
-                }}
-                transition={{ duration: 4, repeat: Infinity }}
+                className="absolute inset-0 rounded-[40px] bg-background/40 backdrop-blur-3xl border border-foreground/10 flex items-center justify-center overflow-hidden cursor-crosshair group shadow-[0_0_50px_rgba(0,0,0,0.2)]"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               >
-                {/* Glitch Hover Effect */}
-                <div className="absolute w-[275%] h-[275%] -top-[60%] -left-[60%] origin-center">
-                  {/* Logo */}
+                {/* Decorative Tech Lines */}
+                <div className="absolute top-0 left-10 w-px h-full bg-foreground/10"></div>
+                <div className="absolute top-10 left-0 w-full h-px bg-foreground/10"></div>
+                <div className="absolute bottom-0 right-10 w-px h-full bg-foreground/10"></div>
+                <div className="absolute bottom-10 right-0 w-full h-px bg-foreground/10"></div>
+
+                <div className={`absolute w-[200%] h-[200%] origin-center transition-transform duration-700 ease-out group-hover:scale-110 ${!mounted ? '' : resolvedTheme === 'dark' ? 'translate-x-16 translate-y-7' : 'translate-x-11 translate-y-1'}`}>
                   {mounted && (
                     <Image 
                       src={resolvedTheme === 'dark' ? "/logos/logo-white.svg" : "/logos/logo-black.svg"}
                       alt="Deviathan Core"
                       fill
-                      className={`object-contain opacity-90 drop-shadow-[0_0_30px_rgba(118,104,231,0.3)] transition-all duration-300 ${isHovered ? 'blur-[1px] opacity-70' : ''}`}
+                      className={`object-contain opacity-100 drop-shadow-[0_0_30px_var(--primary)] transition-all duration-300 ${isHovered ? 'blur-[2px] opacity-80' : ''}`}
                     />
                   )}
                   
-                  {/* Glitch Layer 1 */}
                   {isHovered && mounted && (
-                    <div 
-                      className="absolute inset-0 opacity-80 mix-blend-screen"
-                      style={{ 
-                        animation: 'glitch-anim-1 0.4s infinite linear alternate-reverse',
-                        filter: 'drop-shadow(-4px 0px 4px #7668E7)'
-                      }}
-                    >
-                      <Image 
-                        src={resolvedTheme === 'dark' ? "/logos/logo-white.svg" : "/logos/logo-black.svg"}
-                        alt=""
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-                  )}
-
-                  {/* Glitch Layer 2 */}
-                  {isHovered && mounted && (
-                    <div 
-                      className="absolute inset-0 opacity-80 mix-blend-screen"
-                      style={{ 
-                        animation: 'glitch-anim-2 0.3s infinite linear alternate-reverse',
-                        filter: 'drop-shadow(4px 0px 4px #D946EF)'
-                      }}
-                    >
-                      <Image 
-                        src={resolvedTheme === 'dark' ? "/logos/logo-white.svg" : "/logos/logo-black.svg"}
-                        alt=""
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-                  )}
-
-                  {/* Scanlines Effect */}
-                  {isHovered && (
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] pointer-events-none z-10" />
+                    <>
+                      <div 
+                        className="absolute inset-0 opacity-80 mix-blend-screen"
+                        style={{ 
+                          animation: 'glitch-anim-1 0.2s infinite linear alternate-reverse',
+                          filter: 'drop-shadow(-8px 0px 0px var(--accent))'
+                        }}
+                      >
+                        <Image src={resolvedTheme === 'dark' ? "/logos/logo-white.svg" : "/logos/logo-black.svg"} alt="" fill className="object-contain" />
+                      </div>
+                      <div 
+                        className="absolute inset-0 opacity-80 mix-blend-screen"
+                        style={{ 
+                          animation: 'glitch-anim-2 0.3s infinite linear alternate-reverse',
+                          filter: 'drop-shadow(8px 0px 0px var(--primary))'
+                        }}
+                      >
+                        <Image src={resolvedTheme === 'dark' ? "/logos/logo-white.svg" : "/logos/logo-black.svg"} alt="" fill className="object-contain" />
+                      </div>
+                      <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,107,0,0.06),rgba(0,0,0,0.02),rgba(118,104,231,0.06))] bg-[length:100%_4px,3px_100%] pointer-events-none z-10" />
+                    </>
                   )}
                 </div>
               </motion.div>
@@ -106,45 +95,58 @@ export function About() {
           </motion.div>
 
           <motion.div
+            className="order-1 lg:order-2"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold font-kanit mb-6">
-              Lleva tu Negocio al<br/> <span className="text-primary">Siguiente Nivel</span>
+            <div className="flex items-center gap-3 mb-6">
+              <Hexagon className="text-accent animate-[spin_10s_linear_infinite]" size={24} />
+              <span className="text-accent font-mono uppercase tracking-[0.3em] text-sm">Nuestro ADN</span>
+            </div>
+
+            <h2 className="text-5xl md:text-6xl font-black font-kanit mb-8 leading-tight">
+              Llevamos tu Negocio al<br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Siguiente Nivel</span>
             </h2>
             
-            <p className="text-lg text-foreground/80 font-open-sans mb-8">
+            <p className="text-xl text-foreground/70 font-open-sans mb-10 font-light leading-relaxed">
               No solo escribimos código; construimos el motor que impulsa tu negocio. 
               Nuestro objetivo es llevar tus operaciones al siguiente nivel a través de una integración tecnológica estratégica.
             </p>
 
-            <div className="space-y-4">
+            <div className="space-y-6">
               {benefits.map((benefit, index) => (
                 <motion.div 
                   key={index}
-                  className="flex items-start gap-3"
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  className="flex items-center gap-4 group cursor-default"
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <CheckCircle2 className="w-6 h-6 text-primary shrink-0 mt-0.5" />
-                  <p className="font-open-sans text-foreground/90">{benefit}</p>
+                  <div className="w-12 h-12 rounded-xl bg-foreground/5 flex items-center justify-center group-hover:bg-primary group-hover:text-background transition-colors duration-300">
+                    <CheckCircle2 className="w-6 h-6" />
+                  </div>
+                  <p className="font-open-sans text-lg text-foreground/90 group-hover:text-primary transition-colors duration-300 font-medium">{benefit}</p>
                 </motion.div>
               ))}
             </div>
 
             <motion.div 
-              className="mt-10 p-6 bg-primary/10 border border-primary/20 rounded-xl"
+              className="mt-12 p-8 glass-card rounded-2xl border-l-4 border-l-accent relative overflow-hidden"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.8 }}
             >
-              <p className="font-kanit font-medium text-lg text-foreground">
-                ¿El Resultado? <span className="text-primary/90">Mayor eficiencia, costos reducidos y una ventaja competitiva evidente.</span>
+              <div className="absolute -right-5 -top-5 w-60 h-60 bg-primary/20 rounded-full blur-3xl"></div>
+              <p className="font-kanit text-2xl font-bold text-foreground relative z-10">
+                El Resultado: <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-foreground">
+                  Mayor eficiencia, costos reducidos y una ventaja competitiva evidente.
+                </span>
               </p>
             </motion.div>
           </motion.div>
