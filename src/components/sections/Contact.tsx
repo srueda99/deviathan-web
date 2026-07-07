@@ -38,8 +38,8 @@ export function Contact() {
   return (
     <section id="contact" className="py-32 relative overflow-hidden bg-background">
       
-      {/* Subtle Grid Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(var(--foreground)_1px,transparent_1px),linear-gradient(90deg,var(--foreground)_1px,transparent_1px)] bg-[size:64px_64px] opacity-[0.03] pointer-events-none [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_20%,transparent_100%)]"></div>
+      {/* Subtle Grid Pattern - Expanded coverage */}
+      <div className="absolute inset-0 bg-[linear-gradient(var(--foreground)_1px,transparent_1px),linear-gradient(90deg,var(--foreground)_1px,transparent_1px)] bg-[size:64px_64px] opacity-[0.08] pointer-events-none [mask-image:radial-gradient(ellipse_100%_100%_at_50%_50%,#000_30%,transparent_80%)]"></div>
       
       {/* Animated abstract shapes DIRECTLY behind the form to highlight glassmorphism */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl h-[800px] z-0 pointer-events-none opacity-60">
@@ -88,7 +88,7 @@ export function Contact() {
         </div>
 
         <motion.div
-          className="rounded-[40px] p-8 md:p-14 relative overflow-hidden shadow-[0_0_30px_var(--secondary)] border border-foreground/10 bg-foreground/5 backdrop-blur-[40px]"
+          className="rounded-[40px] p-8 md:p-14 relative overflow-hidden shadow-[0_0_30px_var(--secondary)] border border-foreground/10 bg-foreground/5 backdrop-blur-[2px]"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
