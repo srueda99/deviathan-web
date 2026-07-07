@@ -140,7 +140,7 @@ export function Hero() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Canvas Antigravity Logic
+  // Canvas Custom Interactive Trail (Tech Symbols)
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -148,144 +148,110 @@ export function Hero() {
     if (!ctx) return;
 
     let animationFrameId: number;
-    let particlesArray: Particle[] = [];
+    let particlesArray: TrailSymbol[] = [];
     
-    const mouse = {
-      x: -1000,
-      y: -1000,
-      radius: 180
-    };
+    let lastMouse = { x: -1000, y: -1000 };
 
     const handleCanvasMouseMove = (e: MouseEvent) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    };
-    
-    const handleMouseLeave = () => {
-      mouse.x = -1000;
-      mouse.y = -1000;
+      const dx = e.clientX - lastMouse.x;
+      const dy = e.clientY - lastMouse.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      
+      // Spawn particles when mouse moves enough to avoid huge clumps
+      if (distance > 15) {
+        const count = Math.random() > 0.5 ? 2 : 1;
+        for(let i=0; i<count; i++) {
+          particlesArray.push(new TrailSymbol(e.clientX, e.clientY));
+        }
+        lastMouse = { x: e.clientX, y: e.clientY };
+      }
     };
 
     window.addEventListener("mousemove", handleCanvasMouseMove);
-    window.addEventListener("mouseleave", handleMouseLeave);
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    class Particle {
+    class TrailSymbol {
       x: number;
       y: number;
       size: number;
       speedX: number;
       speedY: number;
+      life: number;
+      rotation: number;
+      rotSpeed: number;
+      r: number;
+      g: number;
+      b: number;
 
-      constructor() {
-        this.x = Math.random() * (canvas?.width || 0);
-        this.y = Math.random() * (canvas?.height || 0);
-        this.size = Math.random() * 2 + 0.5;
-        this.speedX = Math.random() * 1 - 0.5;
-        this.speedY = Math.random() * 1 - 0.5;
+      constructor(x: number, y: number) {
+        this.x = x + (Math.random() - 0.5) * 20; 
+        this.y = y + (Math.random() - 0.5) * 20;
+        this.size = Math.random() * 10 + 12; // 12px to 22px
+        this.speedX = (Math.random() - 0.5) * 1;
+        this.speedY = (Math.random() - 0.5) * 1 - 0.5; // Drift upwards
+        this.life = 1.0;
+        this.rotation = (Math.random() - 0.5) * 1;
+        this.rotSpeed = (Math.random() - 0.5) * 0.05;
+        
+        const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() || '#7668E7';
+        this.r = 118; this.g = 104; this.b = 231;
+        if (primaryColor.startsWith('#')) {
+          const hex = primaryColor.replace('#', '');
+          this.r = parseInt(hex.substring(0, 2), 16);
+          this.g = parseInt(hex.substring(2, 4), 16);
+          this.b = parseInt(hex.substring(4, 6), 16);
+        }
       }
 
       update() {
-        if (!canvas) return;
         this.x += this.speedX;
         this.y += this.speedY;
-
-        if (this.x > canvas.width) this.x = 0;
-        else if (this.x < 0) this.x = canvas.width;
-        if (this.y > canvas.height) this.y = 0;
-        else if (this.y < 0) this.y = canvas.height;
-
-        const dx = mouse.x - this.x;
-        const dy = mouse.y - this.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < mouse.radius) {
-          const force = (mouse.radius - distance) / mouse.radius;
-          const pushX = (dx / distance) * force * 4;
-          const pushY = (dy / distance) * force * 4;
-          this.x -= pushX;
-          this.y -= pushY;
-        }
+        this.rotation += this.rotSpeed;
+        this.life -= 0.015; // Fade out speed
       }
 
       draw() {
         if (!ctx) return;
-        const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() || '#7668E7';
-        let r = 118, g = 104, b = 231;
-        if (primaryColor.startsWith('#')) {
-          const hex = primaryColor.replace('#', '');
-          r = parseInt(hex.substring(0, 2), 16);
-          g = parseInt(hex.substring(2, 4), 16);
-          b = parseInt(hex.substring(4, 6), 16);
-        }
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
         
-        ctx.fillStyle = resolvedTheme === "dark" ? `rgba(${r}, ${g}, ${b}, 0.6)` : `rgba(${r}, ${g}, ${b}, 0.4)`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.fill();
+        ctx.fillStyle = `rgba(${this.r}, ${this.g}, ${this.b}, ${Math.max(0, this.life)})`;
+        ctx.font = `bold ${this.size}px monospace`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("</>", 0, 0);
+        
+        ctx.restore();
       }
     }
-
-    const init = () => {
-      particlesArray = [];
-      const numberOfParticles = (canvas.width * canvas.height) / 10000;
-      for (let i = 0; i < numberOfParticles; i++) {
-        particlesArray.push(new Particle());
-      }
-    };
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      for (let i = 0; i < particlesArray.length; i++) {
+      for (let i = particlesArray.length - 1; i >= 0; i--) {
         particlesArray[i].update();
         particlesArray[i].draw();
         
-        const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() || '#7668E7';
-        let r = 118, g = 104, b = 231;
-        if (primaryColor.startsWith('#')) {
-          const hex = primaryColor.replace('#', '');
-          r = parseInt(hex.substring(0, 2), 16);
-          g = parseInt(hex.substring(2, 4), 16);
-          b = parseInt(hex.substring(4, 6), 16);
-        }
-
-        for (let j = i; j < particlesArray.length; j++) {
-          const dx = particlesArray[i].x - particlesArray[j].x;
-          const dy = particlesArray[i].y - particlesArray[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          
-          if (distance < 120) {
-            ctx.beginPath();
-            ctx.strokeStyle = resolvedTheme === "dark" 
-              ? `rgba(${r}, ${g}, ${b}, ${0.2 - distance / 600})`
-              : `rgba(${r}, ${g}, ${b}, ${0.15 - distance / 800})`;
-            ctx.lineWidth = 1;
-            ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-            ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
-            ctx.stroke();
-          }
+        if (particlesArray[i].life <= 0) {
+          particlesArray.splice(i, 1);
         }
       }
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    init();
     animate();
 
     const handleResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      init();
     };
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("mousemove", handleCanvasMouseMove);
-      window.removeEventListener("mouseleave", handleMouseLeave);
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
     };
