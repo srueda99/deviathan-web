@@ -5,6 +5,11 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --font-kanit: var(--font-kanit);
+  --font-open-sans: var(--font-open-sans);
+  --font-righteous: var(--font-righteous);
+  --font-jersey-10: var(--font-jersey-10);
 }
 
 @layer base {
@@ -14,14 +19,16 @@
     --primary: #7668E7;
     --secondary: #E2E8F0;
     --secondary-foreground: #110941;
+    --accent: #019382;
   }
 
   .dark {
-    --background: #0F0F11;
+    --background: #000000;
     --foreground: #F7F7F7;
     --primary: #7668E7;
     --secondary: #110941;
-    --secondary-foreground: #E2E8F0;
+    --secondary-foreground: #F7F7F7;
+    --accent: #FB7185;
   }
 
   html {
@@ -34,34 +41,76 @@
     color: var(--foreground);
     font-family: var(--font-kanit), var(--font-open-sans), sans-serif;
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   ::selection {
-    background-color: var(--primary);
-    color: var(--foreground);
+    background-color: var(--accent);
+    color: #000;
   }
 
+  /* Custom Animations */
   @keyframes shimmer {
     100% {
       transform: translateX(100%);
     }
   }
 
-  @keyframes glitch-anim-1 {
-    0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 2px); }
-    20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -2px); }
-    40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 1px); }
-    60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, 2px); }
-    80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, -2px); }
-    100% { clip-path: inset(30% 0 50% 0); transform: translate(1px, 2px); }
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
   }
 
-  @keyframes glitch-anim-2 {
-    0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
-    20% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 2px); }
-    40% { clip-path: inset(30% 0 20% 0); transform: translate(2px, -2px); }
-    60% { clip-path: inset(70% 0 15% 0); transform: translate(-1px, 1px); }
-    80% { clip-path: inset(20% 0 50% 0); transform: translate(2px, 2px); }
-    100% { clip-path: inset(50% 0 30% 0); transform: translate(-2px, -1px); }
+  @keyframes gradient-xy {
+    0%, 100% {
+      background-size: 400% 400%;
+      background-position: 0% 0%;
+    }
+    25% {
+      background-size: 400% 400%;
+      background-position: 100% 0%;
+    }
+    50% {
+      background-size: 400% 400%;
+      background-position: 100% 100%;
+    }
+    75% {
+      background-size: 400% 400%;
+      background-position: 0% 100%;
+    }
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary); }
+    50% { box-shadow: 0 0 40px var(--accent), 0 0 80px var(--accent); }
+  }
+
+  /* Utility classes for design */
+  .text-outline {
+    -webkit-text-stroke: 1px var(--foreground);
+    color: transparent;
+  }
+  
+  .dark .text-outline {
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .dark .glass-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
   }
 }
