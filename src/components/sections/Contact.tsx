@@ -66,24 +66,24 @@ export function Contact() {
             <MessageCircle size={16} /> Contacto Directo
           </motion.div>
           <motion.h2 
-            className="text-5xl md:text-7xl font-black font-kanit mb-6 uppercase tracking-tighter"
+            className="text-5xl md:text-7xl font-bold font-kanit mb-6 uppercase tracking-tighter"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            Inicia tu <br/>
+            ESTAMOS LISTOS. <br/>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] animate-[gradient-xy_3s_linear_infinite]">
-              Revolución Digital
+              ¿Y Tú?
             </span>
           </motion.h2>
           <motion.p 
-            className="text-xl text-foreground/60 font-open-sans max-w-2xl mx-auto font-light"
+            className="text-xl text-foreground font-open-sans max-w-2xl mx-auto font-normal"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            Sistemas convencionales traen resultados convencionales. Déjanos tus datos y empecemos a crear algo extraordinario. Te responderemos en menos de una hora.
+            Soluciones convencionales traen resultados convencionales. Déjanos tus datos y empecemos a crear algo extraordinario. Te responderemos en menos de una hora.
           </motion.p>
         </div>
 

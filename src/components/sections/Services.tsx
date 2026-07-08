@@ -14,51 +14,43 @@ import Link from "next/link";
 
 const services = [
   {
-    icon: <Code2Icon className="w-10 h-10" />,
-    title: "Software a la Medida",
-    description: "Soluciones arquitectónicas de alto rendimiento, escalables y diseñadas exactamente para las necesidades de tu negocio.",
+    title: "Convierte tus datos en decisiones inteligentes",
+    description: "Inteligencia Artificial",
     colSpan: "lg:col-span-2",
     iconColorClass: "group-hover:text-accent transition-colors",
     colorClass: "bg-foreground/10 hover:bg-background hover:border-2 hover:border-accent hover:shadow-primary",
   },
   {
-    icon: <Bot className="w-10 h-10" />,
-    title: "Inteligencia Artificial",
-    description: "Modelos predictivos, agentes autónomos y automatización cognitiva que revolucionan tus procesos internos.",
+    title: "Resuelve problemas únicos con software hecho para tu empresa",
+    description: "Software a la Medida",
     colSpan: "lg:col-span-1 lg:row-span-2",
     iconColorClass: "group-hover:text-primary transition-colors",
     colorClass: "bg-foreground/10 hover:bg-background hover:border-2 hover:border-primary hover:shadow-primary",
   },
   {
-    icon: <Globe className="w-10 h-10" />,
-    title: "Desarrollo Web",
-    description: "Experiencias web inmersivas y ultrarrápidas utilizando las últimas tecnologías del mercado.",
+    title: "Sitios web que convierten visitantes en clientes",
+    description: "Desarrollo Web",
     colSpan: "lg:col-span-1",
     iconColorClass: "group-hover:text-primary transition-colors",
     colorClass: "bg-foreground/10 hover:bg-background hover:border-2 hover:border-primary hover:shadow-primary",
   },
   {
-    icon: <Smartphone className="w-10 h-10" />,
-    title: "Aplicaciones Móviles",
-    description: "Aplicaciones nativas e híbridas que conquistan a los usuarios con interfaces fluidas.",
+    title: "Tu negocio siempre al alcance de tus clientes",
+    description: "Aplicaciones Móviles",
     colSpan: "lg:col-span-1",
     iconColorClass: "group-hover:text-accent transition-colors",
     colorClass: "bg-foreground/10 hover:bg-background hover:border-2 hover:border-accent hover:shadow-primary",
   },
   {
-    icon: <ShieldCheck className="w-10 h-10" />,
-    title: "Ciberseguridad",
-    description: "Blindaje absoluto de tu infraestructura. Auditorías, mitigación de riesgos y protección de datos.",
+    title: "Automatiza tareas que hoy consumen horas de trabajo",
+    description: "Automatización",
     colSpan: "lg:col-span-1",
     iconColorClass: "group-hover:text-accent transition-colors",
     colorClass: "bg-foreground/10 hover:bg-background hover:border-2 hover:border-accent hover:shadow-primary",
   },
   {
-    icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12a7.5 7.5 0 0 0 15 0m-15 0a7.5 7.5 0 1 1 15 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077 1.41-.513m14.095-5.13 1.41-.513M5.106 17.785l1.15-.964m11.49-9.642 1.149-.964M7.501 19.795l.75-1.3m7.5-12.99.75-1.3m-6.063 16.658.26-1.477m2.605-14.772.26-1.477m0 17.726-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205 12 12m6.894 5.785-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495" />
-    </svg>,
-    title: "Automatizaciones",
-    description: "Automatización de procesos repetitivos y tareas complejas para optimizar el tiempo y los recursos de tu empresa.",
+    title: "Evita ataques, robos de datos y riesgos que pueden hundir tu negocio",
+    description: "Ciberseguridad",
     colSpan: "lg:col-span-2",
     iconColorClass: "group-hover:text-primary transition-colors",
     colorClass: "bg-foreground/10 hover:bg-background hover:border-2 hover:border-primary hover:shadow-primary",
@@ -97,7 +89,7 @@ export function Services() {
               Nuestros <span className="text-transparent bg-clip-text bg-primary">Servicios</span>
             </motion.h2>
             <motion.p 
-              className="text-xl text-foreground/60 font-open-sans mt-6 max-w-xl font-light"
+              className="text-xl text-foreground font-open-sans mt-6 max-w-xl font-normal"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -133,19 +125,19 @@ export function Services() {
             >
               <div className="relative h-full p-8 flex flex-col justify-evenly z-10">
                 <div className="flex justify-between items-start">
-                  <div className={`p-4 rounded-2xl bg-foreground/15 text-foreground transition-all duration-500 group-hover:bg-foreground/10`}>
+                  {/* <div className={`p-4 rounded-2xl bg-foreground/15 text-foreground transition-all duration-500 group-hover:bg-foreground/10`}>
                     <div className={service.iconColorClass}>
                       {service.icon}
                     </div>
-                  </div>
+                  </div> */}
                   <ArrowRight className="opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-foreground" />
                 </div>
 
                 <div>
-                  <h3 className="text-3xl lg:text-4xl 2xl:text-5xl font-normal font-jersey-10 mb-4 tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-br group-hover:from-foreground group-hover:to-foreground/50 transition-colors">
+                  <h3 className="text-2xl lg:text-3xl 2xl:text-4xl font-normal font-righteous mb-4 tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-br group-hover:from-foreground group-hover:to-foreground/50 transition-colors">
                     {service.title}
                   </h3>
-                  <p className="text-foreground/70 font-open-sans text-base leading-relaxed group-hover:text-foreground/90 transition-colors">
+                  <p className="text-foreground font-open-sans text-base leading-relaxed group-hover:font-semibold transition-colors">
                     {service.description}
                   </p>
                 </div>

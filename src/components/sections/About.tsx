@@ -7,12 +7,12 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 
 const benefits = [
-  "Si tienes una idea, podemos desarrollarla.",
-  "Si tienes tareas repetitivas, podemos automatizarlas.",
-  "Si tienes una página web, podemos mejorarla.",
-  "Si quieres más seguridad, podemos añadirla.",
-  "Si quieres usar IA, podemos ayudarte.",
-  "Si quieres llevar tu sistema a la nube, podemos hacerlo por ti.",
+  "Entendemos el problema antes de desarrollar.",
+  "Mantenemos comunicación directa durante todo el proyecto.",
+  "Nada de soluciones genéricas.",
+  "Simplificamos procesos, no los complicamos.",
+  "Construimos pensando en el crecimiento.",
+  "Actuamos como socios, no como proveedores.",
 ];
 
 export function About() {
@@ -110,13 +110,13 @@ export function About() {
             </div>
 
             <h2 className="text-5xl md:text-6xl font-black font-kanit mb-8 leading-tight">
-              Llevamos tu Negocio al<br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Siguiente Nivel</span>
+              NUESTRA PROMESA ES<br/>
+              <span className="text-transparent bg-clip-text bg-primary">SIMPLE</span>
             </h2>
             
-            <p className="text-xl text-foreground/70 font-open-sans mb-10 font-light leading-relaxed">
-              No solo escribimos código; construimos el motor que impulsa tu negocio. 
-              Nuestro objetivo es llevar tus operaciones al siguiente nivel a través de una integración tecnológica estratégica.
+            <p className="text-xl text-foreground font-open-sans mb-10 font-normal leading-relaxed">
+              Queremos que la tecnología impulse tu empresa, no que se convierta en otro problema por resolver.
+              Por eso trabajamos como tu <span className="text-primary font-semibold">aliado</span> tecnológico en cada etapa del camino.
             </p>
 
             <div className="space-y-6">
@@ -148,7 +148,7 @@ export function About() {
               <p className="font-kanit text-2xl font-bold text-foreground relative z-10">
                 El Resultado: <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-foreground">
-                  Mayor eficiencia, costos reducidos y una ventaja competitiva evidente.
+                  Más tiempo para hacer crecer tu negocio. Menos tiempo resolviendo problemas.
                 </span>
               </p>
             </motion.div>

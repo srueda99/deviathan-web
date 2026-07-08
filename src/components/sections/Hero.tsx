@@ -292,15 +292,15 @@ export function Hero() {
           </div>
           
           <h1 className="text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-[5.5rem] font-black font-kanit leading-[1.1] tracking-tight">
-            Construimos el <br />
+            Construimos el <br/>
             <span className="text-transparent bg-clip-text bg-[linear-gradient(45deg,var(--primary),var(--foreground),var(--primary))] bg-[length:400%_400%] animate-[gradient-xy_5s_ease_infinite]">
               Futuro
             </span><br/>
             de tu Empresa
           </h1>
           
-          <p className="text-xl md:text-2xl text-foreground/70 font-open-sans max-w-xl font-light">
-            Desarrollamos soluciones de software a la medida para ayudar a tu empresa a crecer y destacarse.
+          <p className="text-xl md:text-2xl text-foreground font-open-sans max-w-xl font-normal">
+            Desarrollamos software, inteligencia artificial y automatizaciones que impulsan el crecimiento de tu empresa.
           </p>
           
           <div className="flex flex-wrap gap-6 mt-4">

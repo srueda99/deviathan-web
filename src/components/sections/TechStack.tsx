@@ -73,7 +73,7 @@ export function TechStack() {
           Potenciados por los <br/>
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Estándares del Mercado</span>
         </h2>
-        <p className="text-lg md:text-xl text-foreground/60 font-open-sans max-w-2xl mx-auto font-light">
+        <p className="text-lg md:text-xl text-foreground font-open-sans max-w-2xl mx-auto font-normal">
           Utilizamos tecnologías de vanguardia y nos integramos perfectamente con las plataformas que ya usas todos los días.
         </p>
       </div>
