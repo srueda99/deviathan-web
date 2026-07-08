@@ -56,7 +56,10 @@ export function About() {
                 <div className="absolute bottom-0 right-10 w-px h-full bg-foreground/10"></div>
                 <div className="absolute bottom-10 right-0 w-full h-px bg-foreground/10"></div>
 
-                <div className={`absolute w-[200%] h-[200%] origin-center transition-transform duration-700 ease-out group-hover:scale-110 ${!mounted ? '' : resolvedTheme === 'dark' ? 'translate-x-16 translate-y-7' : 'translate-x-11 translate-y-1'}`}>
+                <div className={`absolute w-[200%] h-[200%] origin-center transition-transform duration-700 ease-out group-hover:scale-110 ${!mounted ? '' : resolvedTheme === 'dark' ?
+                                    'translate-x-12 translate-y-5 md:translate-x-16  lg:translate-x-14 xl:translate-x-16' :
+                                    'translate-x-8 translate-y-1 md:translate-x-11 lg:translate-x-10 xl:translate-x-12'}`
+                                }>
                   {mounted && (
                     <Image 
                       src={resolvedTheme === 'dark' ? "/logos/logo-white.svg" : "/logos/logo-black.svg"}

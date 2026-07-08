@@ -88,7 +88,7 @@ export function Contact() {
         </div>
 
         <motion.div
-          className="rounded-[40px] p-8 md:p-14 relative overflow-hidden shadow-[0_0_30px_var(--secondary)] border border-foreground/10 bg-foreground/5 backdrop-blur-[2px]"
+          className="rounded-[40px] p-8 md:p-14 relative overflow-hidden shadow-[0_0_30px_var(--secondary)] border border-foreground/10 bg-secondary/5 backdrop-blur-[2px]"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

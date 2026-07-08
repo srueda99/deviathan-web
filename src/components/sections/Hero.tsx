@@ -140,7 +140,7 @@ export function Hero() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Canvas Custom Interactive Trail (Tech Symbols)
+  // Canvas Magnetic Grid Logic
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -148,110 +148,115 @@ export function Hero() {
     if (!ctx) return;
 
     let animationFrameId: number;
-    let particlesArray: TrailSymbol[] = [];
-    
-    let lastMouse = { x: -1000, y: -1000 };
+    const spacing = 64;
+    let cols = 0;
+    let rows = 0;
+    let nodes: { ox: number; oy: number; x: number; y: number; vx: number; vy: number }[][] = [];
+    let mouse = { x: -1000, y: -1000, radius: 75 };
 
     const handleCanvasMouseMove = (e: MouseEvent) => {
-      const dx = e.clientX - lastMouse.x;
-      const dy = e.clientY - lastMouse.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      
-      // Spawn particles when mouse moves enough to avoid huge clumps
-      if (distance > 15) {
-        const count = Math.random() > 0.5 ? 2 : 1;
-        for(let i=0; i<count; i++) {
-          particlesArray.push(new TrailSymbol(e.clientX, e.clientY));
-        }
-        lastMouse = { x: e.clientX, y: e.clientY };
-      }
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    };
+
+    const handleMouseLeave = () => {
+      mouse.x = -1000;
+      mouse.y = -1000;
     };
 
     window.addEventListener("mousemove", handleCanvasMouseMove);
+    window.addEventListener("mouseleave", handleMouseLeave);
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const initGrid = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      
+      cols = Math.ceil(canvas.width / spacing) + 2;
+      rows = Math.ceil(canvas.height / spacing) + 2;
+      nodes = [];
 
-    class TrailSymbol {
-      x: number;
-      y: number;
-      size: number;
-      speedX: number;
-      speedY: number;
-      life: number;
-      rotation: number;
-      rotSpeed: number;
-      r: number;
-      g: number;
-      b: number;
+      const offsetX = (canvas.width - (cols - 1) * spacing) / 2;
+      const offsetY = (canvas.height - (rows - 1) * spacing) / 2;
 
-      constructor(x: number, y: number) {
-        this.x = x + (Math.random() - 0.5) * 20; 
-        this.y = y + (Math.random() - 0.5) * 20;
-        this.size = Math.random() * 10 + 12; // 12px to 22px
-        this.speedX = (Math.random() - 0.5) * 1;
-        this.speedY = (Math.random() - 0.5) * 1 - 0.5; // Drift upwards
-        this.life = 1.0;
-        this.rotation = (Math.random() - 0.5) * 1;
-        this.rotSpeed = (Math.random() - 0.5) * 0.05;
-        
-        const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim() || '#7668E7';
-        this.r = 118; this.g = 104; this.b = 231;
-        if (primaryColor.startsWith('#')) {
-          const hex = primaryColor.replace('#', '');
-          this.r = parseInt(hex.substring(0, 2), 16);
-          this.g = parseInt(hex.substring(2, 4), 16);
-          this.b = parseInt(hex.substring(4, 6), 16);
+      for (let i = 0; i < cols; i++) {
+        nodes[i] = [];
+        for (let j = 0; j < rows; j++) {
+          const x = offsetX + i * spacing;
+          const y = offsetY + j * spacing;
+          nodes[i][j] = { ox: x, oy: y, x: x, y: y, vx: 0, vy: 0 };
         }
       }
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        this.rotation += this.rotSpeed;
-        this.life -= 0.015; // Fade out speed
-      }
-
-      draw() {
-        if (!ctx) return;
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.rotation);
-        
-        ctx.fillStyle = `rgba(${this.r}, ${this.g}, ${this.b}, ${Math.max(0, this.life)})`;
-        ctx.font = `bold ${this.size}px monospace`;
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText("</>", 0, 0);
-        
-        ctx.restore();
-      }
-    }
+    };
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      for (let i = particlesArray.length - 1; i >= 0; i--) {
-        particlesArray[i].update();
-        particlesArray[i].draw();
-        
-        if (particlesArray[i].life <= 0) {
-          particlesArray.splice(i, 1);
+
+      for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+          let node = nodes[i][j];
+
+          const dx = mouse.x - node.x;
+          const dy = mouse.y - node.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < mouse.radius) {
+            const force = (mouse.radius - dist) / mouse.radius;
+            const angle = Math.atan2(dy, dx);
+            // Disminuida la fuerza del empuje de 20 a 12 para que sea más sutil
+            const pushX = Math.cos(angle) * force * 5;
+            const pushY = Math.sin(angle) * force * 5;
+
+            node.vx -= pushX;
+            node.vy -= pushY;
+          }
+
+          node.vx += (node.ox - node.x) * 0.05;
+          node.vy += (node.oy - node.y) * 0.05;
+          
+          node.vx *= 0.75;
+          node.vy *= 0.75;
+
+          node.x += node.vx;
+          node.y += node.vy;
         }
       }
+
+      ctx.beginPath();
+      ctx.strokeStyle = resolvedTheme === "dark" ? "rgba(255, 255, 255, 0.15)" : "rgba(0, 0, 0, 0.08)";
+      ctx.lineWidth = resolvedTheme === "dark" ? 2 : 1.5;
+
+      for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+          let node = nodes[i][j];
+
+          // Conectar hacia la derecha
+          if (i < cols - 1) {
+            ctx.moveTo(node.x, node.y);
+            ctx.lineTo(nodes[i + 1][j].x, nodes[i + 1][j].y);
+          }
+          // Conectar hacia abajo
+          if (j < rows - 1) {
+            ctx.moveTo(node.x, node.y);
+            ctx.lineTo(nodes[i][j + 1].x, nodes[i][j + 1].y);
+          }
+        }
+      }
+      ctx.stroke();
+
       animationFrameId = requestAnimationFrame(animate);
     };
 
+    initGrid();
     animate();
 
     const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      initGrid();
     };
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("mousemove", handleCanvasMouseMove);
+      window.removeEventListener("mouseleave", handleMouseLeave);
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
     };
@@ -265,17 +270,17 @@ export function Hero() {
       
       <canvas 
         ref={canvasRef} 
-        className="absolute inset-0 z-0 pointer-events-none"
+        className="absolute inset-0 z-0 pointer-events-none [mask-image:radial-gradient(ellipse_100%_100%_at_50%_50%,#000_30%,transparent_80%)]"
       />
 
       <div className="absolute top-[10%] left-[20%] w-[40vw] h-[40vw] bg-primary/20 rounded-full blur-[150px] mix-blend-screen animate-[pulse-glow_8s_ease-in-out_infinite] -z-10 pointer-events-none"></div>
       <div className="absolute bottom-[10%] right-[10%] w-[35vw] h-[35vw] bg-accent/10 rounded-full blur-[130px] mix-blend-screen animate-[float_10s_ease-in-out_infinite] -z-10 pointer-events-none"></div>
 
-      <div className="container mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-screen pt-32 lg:pt-40 pb-20 pointer-events-none">
+      <div className="container mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-center min-h-screen pt-32 lg:pt-40 pb-20 pointer-events-none">
         
         {/* Left Content */}
         <motion.div 
-          className="flex flex-col gap-8 lg:col-span-1 col-span-full z-20 pointer-events-auto"
+          className="flex flex-col gap-8 lg:col-span-5 col-span-full z-20 pointer-events-auto"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
@@ -286,7 +291,7 @@ export function Hero() {
             <span className="text-sm font-semibold tracking-widest uppercase text-foreground/90">Next-Gen Software</span>
           </div>
           
-          <h1 className="text-6xl md:text-7xl lg:text-[5.5rem] font-black font-kanit leading-[1.1] tracking-tight">
+          <h1 className="text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-[5.5rem] font-black font-kanit leading-[1.1] tracking-tight">
             Construimos el <br />
             <span className="text-transparent bg-clip-text bg-[linear-gradient(45deg,var(--primary),var(--foreground),var(--primary))] bg-[length:400%_400%] animate-[gradient-xy_5s_ease_infinite]">
               Futuro
@@ -323,22 +328,22 @@ export function Hero() {
 
         {/* Right Abstract Visuals (3D + AI Chat) */}
         <motion.div 
-          className="relative h-[500px] lg:h-[700px] w-full hidden lg:flex items-center justify-center perspective-[1000px] pointer-events-auto"
+          className="relative h-[500px] lg:h-[700px] w-full hidden lg:flex items-center justify-center perspective-[1000px] pointer-events-auto lg:col-span-7"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
           style={{ y: y1 }}
         >
-          {/* AI Interactive Assistant Widget */}
+          {/* AI Assistant Widget */}
           <motion.div
-            className="absolute top-[15%] md:top-[20%] -left-[5%] md:-left-[10%] w-[340px] md:w-[380px] glass-card bg-background/60 backdrop-blur-2xl p-6 rounded-[2rem] z-30 shadow-primary border border-foreground/10 overflow-hidden"
+            className="absolute top-[5%] md:top-[8%] left-[0%] lg:left-[5%] xl:left-[2%] 2xl:left-[3%] w-[340px] md:w-[380px] 2xl:w-[440px] glass-card bg-foreground/5 backdrop-blur-[2px] p-6 2xl:p-8 rounded-[2rem] z-30 shadow-primary border border-foreground/10 overflow-hidden"
             style={{ y: y2 }}
           >
             {/* Top Shine highlight */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
             
             {/* Header */}
-            <div className="flex items-center gap-4 mb-6 pb-4 border-b border-foreground/10">
+            <div className="flex items-center gap-4 mb-8 pb-4 border-b border-foreground/10">
               <div className="relative flex items-center justify-center w-12 h-12 rounded-2xl bg-primary/20 text-primary shadow-inner">
                 <Bot size={24} />
                 <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-[#32CD32] rounded-full border-2 border-background animate-pulse shadow-[0_0_10px_#32CD32]"></span>
@@ -350,7 +355,7 @@ export function Hero() {
             </div>
 
             {/* Chat Container */}
-            <div className="space-y-4 min-h-[200px]">
+            <div className="space-y-4 min-h-[220px] 2xl:min-h-[250px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={scenarioIdx}
@@ -413,14 +418,14 @@ export function Hero() {
 
           {/* Automation Pipeline Widget */}
           <motion.div
-            className="absolute top-[15%] md:top-[10%] -right-[5%] md:-right-[5%] w-[320px] md:w-[360px] glass-card bg-background/60 backdrop-blur-2xl p-6 rounded-[2rem] z-30 shadow-primary border border-foreground/10 overflow-hidden"
+            className="absolute bottom-[10%] xl:bottom-[20%] right-[0%] xl:right-[-5%] 2xl:right-[-2%] w-[320px] md:w-[360px] 2xl:w-[420px] glass-card bg-foreground/5 backdrop-blur-[2px] p-6 2xl:p-8 rounded-[2rem] z-30 shadow-primary border border-foreground/10 overflow-hidden hidden xl:block"
             style={{ y: y1 }}
           >
             {/* Top Shine highlight */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
             
             {/* Header */}
-            <div className="flex items-center gap-4 mb-4 pb-4 border-b border-foreground/10">
+            <div className="flex items-center gap-4 mb-6 pb-4 border-b border-foreground/10">
               <div className="relative flex items-center justify-center w-12 h-12 rounded-2xl bg-primary/10 text-primary shadow-inner overflow-hidden border border-primary/20">
                 <Cog size={24} className={autoStep === 1 ? 'animate-[spin_1.5s_linear_infinite]' : ''} />
               </div>
@@ -431,7 +436,7 @@ export function Hero() {
             </div>
 
             {/* Body */}
-            <div className="min-h-[140px]">
+            <div className="min-h-[160px] 2xl:min-h-[190px]">
               <AnimatePresence mode="wait">
                 <motion.div 
                   key={autoScenarioIdx} 

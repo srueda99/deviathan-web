@@ -6,6 +6,10 @@
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
+  --font-kanit: var(--font-kanit);
+  --font-open-sans: var(--font-open-sans);
+  --font-righteous: var(--font-righteous);
+  --font-jersey-10: var(--font-jersey-10);
 }
 
 @layer base {

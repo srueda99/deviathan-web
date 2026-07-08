@@ -48,7 +48,7 @@ export function Footer() {
           
           <div className="flex flex-col items-center md:items-start">
             <h3 className="text-lg font-kanit font-semibold mb-4 text-foreground">Servicios</h3>
-            <ul className="space-y-2 text-foreground/60 font-open-sans">
+            <ul className="space-y-2 text-foreground/60 font-open-sans text-center md:text-left">
               <li><Link href="#services" className="hover:text-primary transition-colors">Desarrollo Web</Link></li>
               <li><Link href="#services" className="hover:text-primary transition-colors">Aplicaciones Móviles</Link></li>
               <li><Link href="#services" className="hover:text-primary transition-colors">Automatizaciones</Link></li>

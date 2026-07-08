@@ -142,7 +142,7 @@ export function Services() {
                 </div>
 
                 <div>
-                  <h3 className="text-3xl font-black font-kanit mb-4 tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-br group-hover:from-foreground group-hover:to-foreground/50 transition-colors">
+                  <h3 className="text-3xl lg:text-4xl 2xl:text-5xl font-normal font-jersey-10 mb-4 tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-br group-hover:from-foreground group-hover:to-foreground/50 transition-colors">
                     {service.title}
                   </h3>
                   <p className="text-foreground/70 font-open-sans text-base leading-relaxed group-hover:text-foreground/90 transition-colors">
