@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageCircle } from "lucide-react";
+import { SiWhatsapp } from "react-icons/si";
 import { motion } from "framer-motion";
 
 export function WhatsAppIcon() {
@@ -15,9 +15,9 @@ export function WhatsAppIcon() {
       transition={{ type: "spring", stiffness: 200, damping: 20 }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
-      aria-label="Contact us on WhatsApp"
+      aria-label="Escríbenos por WhatsApp"
     >
-      <MessageCircle size={28} />
+      <SiWhatsapp size={28} />
     </motion.a>
   );
 }

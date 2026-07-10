@@ -65,9 +65,10 @@ const integrations = [
 export function TechStack() {
   return (
     <section className="py-32 relative overflow-hidden bg-background border-y border-foreground/5">
+      {/* Efecto de desenfoque a los lados */}
       <div className="absolute left-0 top-0 bottom-0 w-16 md:w-40 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none"></div>
       <div className="absolute right-0 top-0 bottom-0 w-16 md:w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none"></div>
-
+      {/* Título y descripción */}
       <div className="container mx-auto px-6 mb-20 text-center relative z-20">
         <h2 className="text-4xl md:text-5xl font-black font-kanit mb-6 uppercase tracking-tight">
           Potenciados por los <br/>
@@ -77,7 +78,7 @@ export function TechStack() {
           Utilizamos tecnologías de vanguardia y nos integramos perfectamente con las plataformas que ya usas todos los días.
         </p>
       </div>
-
+      {/* Carrusel de tecnologías superior */}
       <div className="flex overflow-visible relative w-full mb-10 py-4">
         <motion.div 
           className="flex whitespace-nowrap gap-6 px-3"
@@ -97,7 +98,6 @@ export function TechStack() {
               <div className="text-foreground/30 group-hover:text-primary transition-colors duration-500 relative z-10">
                 <tech.icon size={40} />
               </div>
-              
               <div className="flex flex-col relative z-10">
                 <span className="text-xl font-kanit font-bold text-foreground/80 group-hover:text-foreground transition-colors duration-300">
                   {tech.name}
@@ -110,7 +110,7 @@ export function TechStack() {
           ))}
         </motion.div>
       </div>
-
+      {/* Carrusel de integraciones inferior */}
       <div className="flex overflow-visible relative w-full py-4">
         <motion.div 
           className="flex whitespace-nowrap gap-6 px-3"
@@ -142,7 +142,6 @@ export function TechStack() {
           ))}
         </motion.div>
       </div>
-
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-primary/10 rounded-[100%] blur-[120px] -z-10 pointer-events-none mix-blend-screen"></div>
     </section>
   );

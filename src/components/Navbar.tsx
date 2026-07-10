@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { ThemeToggle } from "./ThemeToggle";
@@ -74,7 +73,7 @@ export function Navbar() {
           )}
         </a>
 
-        {/* Desktop Nav */}
+        {/* NavBar en Desktop */}
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
           <ThemeToggle />
           {navLinks.map((link) => (
@@ -96,7 +95,7 @@ export function Navbar() {
           </a>
         </nav>
 
-        {/* Mobile Nav Toggle */}
+        {/* Toggle del Menú en Mobile */}
         <div className="flex items-center lg:hidden gap-2">
           <ThemeToggle />
           <button
@@ -113,7 +112,7 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Nav Menu */}
+      {/* Versión Mobile del Menú */}
       {isMobileMenuOpen && (
         <motion.div
           className="lg:hidden bg-background/90 backdrop-blur-md border-t border-foreground/5 shadow-2xl h-[50vh] overflow-y-auto"

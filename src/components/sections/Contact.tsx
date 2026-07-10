@@ -10,38 +10,68 @@ export function Contact() {
   const [selectedService, setSelectedService] = useState("");
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
+  // Obtiene el servicio seleccionado
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash;
-      if (hash.includes('?service=')) {
-        const service = decodeURIComponent(hash.split('?service=')[1]);
-        setSelectedService(service);
+    const params = new URLSearchParams(window.location.search);
+    const serviceParam = params.get('service');
+    if (serviceParam) {
+      setSelectedService(serviceParam);
+    }
+
+    // Escucha el evento desde el Services
+    const handleServiceSelected = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      if (customEvent.detail) {
+        setSelectedService(customEvent.detail);
       }
     };
-
-    handleHashChange();
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    // Seleccionar el servicio
+    window.addEventListener('serviceSelected', handleServiceSelected);
+    return () => {
+      window.removeEventListener('serviceSelected', handleServiceSelected);
+    };
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Maneja el envío del formulario al backend
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    setTimeout(() => {
+    // Crea un objeto con los datos del formulario
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      service: selectedService,
+      message: formData.get('message'),
+    };
+    // Hace la solicitud a la API
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      // Verifica la respuesta
+      if (response.ok) {
+        setSubmitted(true);
+        setTimeout(() => setSubmitted(false), 5000);
+        e.currentTarget.reset();
+        setSelectedService("");
+      } else {
+        console.error("Error al enviar el formulario");
+      }
+    } catch (error) {
+      console.error("Error de red", error);
+    } finally {
       setIsSubmitting(false);
-      setSubmitted(true);
-      setTimeout(() => setSubmitted(false), 5000);
-    }, 1500);
+    }
   };
 
   return (
     <section id="contact" className="py-32 relative overflow-hidden bg-background">
-      
-      {/* Subtle Grid Pattern - Expanded coverage */}
+      {/* Cuadrícula de fondo */}
       <div className="absolute inset-0 bg-[linear-gradient(var(--foreground)_1px,transparent_1px),linear-gradient(90deg,var(--foreground)_1px,transparent_1px)] bg-[size:64px_64px] opacity-[0.08] pointer-events-none [mask-image:radial-gradient(ellipse_100%_100%_at_50%_50%,#000_30%,transparent_80%)]"></div>
-      
-      {/* Animated abstract shapes DIRECTLY behind the form to highlight glassmorphism */}
+      {/* Destello de color en el fondo */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl h-[800px] z-0 pointer-events-none opacity-60">
         <motion.div 
           animate={{ rotate: 360, scale: [1, 1.1, 1] }} 
@@ -54,7 +84,7 @@ export function Contact() {
           className="absolute bottom-[10%] right-[20%] w-[450px] h-[450px] bg-primary/30 rounded-full blur-[120px] mix-blend-screen"
         />
       </div>
-      
+      {/* Título y descripción */}
       <div className="container mx-auto px-6 max-w-5xl relative z-10">
         <div className="text-center mb-16">
           <motion.div
@@ -86,7 +116,7 @@ export function Contact() {
             Soluciones convencionales traen resultados convencionales. Déjanos tus datos y empecemos a crear algo extraordinario. Te responderemos en menos de una hora.
           </motion.p>
         </div>
-
+        {/* Formulario de contacto */}
         <motion.div
           className="rounded-[40px] p-8 md:p-14 relative overflow-hidden shadow-[0_0_30px_var(--secondary)] border border-foreground/10 bg-secondary/5 backdrop-blur-[2px]"
           initial={{ opacity: 0, y: 40 }}
@@ -94,10 +124,10 @@ export function Contact() {
           viewport={{ once: true }}
           transition={{ duration: 0.7, type: "spring" }}
         >
-          {/* Subtle reflection overlay for the glass */}
+          {/* Efecto de cristal */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent"></div>
           <div className="absolute -left-[50%] -top-[50%] w-[200%] h-[200%] bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.05)_0%,transparent_50%)] pointer-events-none"></div>
-          
+          {/* Contenedor del formulario */}
           <div className="relative z-10">
             {submitted ? (
               <motion.div 
@@ -105,6 +135,7 @@ export function Contact() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
               >
+                {/* Mensaje de recepción */}
                 <div className="w-24 h-24 bg-accent/10 text-accent rounded-full flex items-center justify-center mx-auto mb-8 shadow-[0_0_30px_var(--accent)]">
                   <CheckCircle2 className="w-12 h-12" />
                 </div>
@@ -113,12 +144,14 @@ export function Contact() {
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-8">
+                {/* Campos del formulario */}
                 <div className="grid md:grid-cols-2 gap-8">
                   <div className="space-y-3 relative group">
                     <label htmlFor="name" className={`text-sm font-bold font-kanit uppercase tracking-widest transition-colors ${focusedField === 'name' ? 'text-accent' : 'text-foreground/60'}`}>Nombre Completo</label>
                     <input 
                       type="text" 
                       id="name" 
+                      name="name"
                       required
                       onFocus={() => setFocusedField('name')}
                       onBlur={() => setFocusedField(null)}
@@ -131,6 +164,7 @@ export function Contact() {
                     <input 
                       type="email" 
                       id="email" 
+                      name="email"
                       required
                       onFocus={() => setFocusedField('email')}
                       onBlur={() => setFocusedField(null)}
@@ -139,11 +173,11 @@ export function Contact() {
                     />
                   </div>
                 </div>
-
                 <div className="space-y-3 relative group">
                   <label htmlFor="service" className={`text-sm font-bold font-kanit uppercase tracking-widest transition-colors ${focusedField === 'service' ? 'text-accent' : 'text-foreground/60'}`}>Servicio de Interés</label>
                   <select 
                     id="service" 
+                    name="service"
                     onFocus={() => setFocusedField('service')}
                     onBlur={() => setFocusedField(null)}
                     className="w-full bg-background/30 backdrop-blur-md border border-foreground/10 rounded-2xl px-6 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all font-open-sans cursor-pointer appearance-none shadow-inner"
@@ -152,20 +186,20 @@ export function Contact() {
                   >
                     <option value="" disabled className="bg-secondary text-foreground/50">Selecciona el área principal</option>
                     <option value="Software a la Medida" className="bg-background text-foreground">Software a la Medida</option>
-                    <option value="Automatizaciones" className="bg-background text-foreground">Automatizaciones</option>
+                    <option value="Automatización" className="bg-background text-foreground">Automatización</option>
                     <option value="Inteligencia Artificial" className="bg-background text-foreground">Inteligencia Artificial</option>
-                    <option value="Plataformas Web" className="bg-background text-foreground">Plataformas Web</option>
-                    <option value="Apps Móviles" className="bg-background text-foreground">Apps Móviles</option>
+                    <option value="Desarrollo Web" className="bg-background text-foreground">Desarrollo Web</option>
+                    <option value="Aplicaciones Móviles" className="bg-background text-foreground">Aplicaciones Móviles</option>
                     <option value="Ciberseguridad" className="bg-background text-foreground">Ciberseguridad</option>
                     <option value="Diseño UI/UX" className="bg-background text-foreground">Diseño UI/UX</option>
                     <option value="Otro" className="bg-background text-foreground">Otro</option>
                   </select>
                 </div>
-
                 <div className="space-y-3 relative group">
                   <label htmlFor="message" className={`text-sm font-bold font-kanit uppercase tracking-widest transition-colors ${focusedField === 'message' ? 'text-accent' : 'text-foreground/60'}`}>Detalles del Proyecto</label>
                   <textarea 
-                    id="message" 
+                    id="message"
+                    name="message"
                     rows={4}
                     onFocus={() => setFocusedField('message')}
                     onBlur={() => setFocusedField(null)}
@@ -173,7 +207,7 @@ export function Contact() {
                     placeholder="Cuéntanos brevemente qué tienes en mente..."
                   ></textarea>
                 </div>
-
+                {/* Botón de envío */}
                 <motion.button 
                   type="submit"
                   disabled={isSubmitting}

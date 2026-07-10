@@ -1,11 +1,11 @@
 "use client";
 
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
-import { ArrowRight, Code, Bot, TrendingUp, Users, Zap, CheckCircle2, Cog, ShoppingCart, Briefcase, LineChart, Play } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight, Code, Bot, TrendingUp, Users, CheckCircle2, Cog, ShoppingCart, Briefcase, LineChart, Play } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 
+// Escenarios simulados del asistente IA
 const aiScenarios = [
   {
     query: "Analiza los datos de ventas del Q1...",
@@ -44,6 +44,7 @@ const aiScenarios = [
   },
 ];
 
+// Escenarios de automatización simulados
 const automationScenarios = [
   {
     title: "Sincronizar el inventario de todas las tiendas",
@@ -66,68 +67,70 @@ const automationScenarios = [
 ];
 
 export function Hero() {
+  // Animaciones para el scroll
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 1000], [0, 300]);
   const y2 = useTransform(scrollY, [0, 1000], [0, -200]);
   const opacity = useTransform(scrollY, [0, 500], [1, 0]);
   
+  // Estados para el seguimiento del mouse
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme } = useTheme();
-  
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // AI Chat State
+  // Estado para el widget de IA
   const [scenarioIdx, setScenarioIdx] = useState(0);
   const [chatStep, setChatStep] = useState<0 | 1 | 2>(0);
 
-  // AI Chat Logic Sequence
+  // Lógica del widget de IA
   useEffect(() => {
     let t1: NodeJS.Timeout, t2: NodeJS.Timeout, t3: NodeJS.Timeout;
-    
     const runSequence = () => {
-      setChatStep(0); // Phase 0: User types
-      t1 = setTimeout(() => setChatStep(1), 1200); // Phase 1: AI Processing
-      t2 = setTimeout(() => setChatStep(2), 3500); // Phase 2: AI Result
+      // Fase 1
+      setChatStep(0);
+      // Fase 2
+      t1 = setTimeout(() => setChatStep(1), 1200);
+      // Fase 3
+      t2 = setTimeout(() => setChatStep(2), 3500);
+      // Reinicia la secuencia
       t3 = setTimeout(() => {
         setScenarioIdx((prev) => (prev + 1) % aiScenarios.length);
         runSequence();
-      }, 9000); // Wait to read, then restart with next scenario
+      }, 9000);
     };
-    
     runSequence();
-    
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, []);
-
   const activeScenario = aiScenarios[scenarioIdx];
 
-  // Automation State
+  // Estado para el widget de automatización
   const [autoScenarioIdx, setAutoScenarioIdx] = useState(0);
   const [autoStep, setAutoStep] = useState<0 | 1 | 2>(0);
 
-  // Automation Logic Sequence
+  // Lógica del widget de automatización
   useEffect(() => {
     let t1: NodeJS.Timeout, t2: NodeJS.Timeout, t3: NodeJS.Timeout;
-    
     const runAutoSequence = () => {
-      setAutoStep(0); // Phase 0: Idle
-      t1 = setTimeout(() => setAutoStep(1), 1000); // Phase 1: Processing
-      t2 = setTimeout(() => setAutoStep(2), 3500); // Phase 2: Completed
+      // Fase 1
+      setAutoStep(0);
+      // Fase 2
+      t1 = setTimeout(() => setAutoStep(1), 1000);
+      // Fase 3
+      t2 = setTimeout(() => setAutoStep(2), 3500);
+      // Reinicia la secuencia
       t3 = setTimeout(() => {
         setAutoScenarioIdx((prev) => (prev + 1) % automationScenarios.length);
         runAutoSequence();
-      }, 7500); // Next scenario
+      }, 7500);
     };
-    
     runAutoSequence();
-    
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, []);
-
   const activeAutoScenario = automationScenarios[autoScenarioIdx];
 
-  // Mouse tracking for 3D effect
+  // Lógica para el seguimiento del mouse
   useEffect(() => {
     setMounted(true);
     const handleMouseMove = (e: MouseEvent) => {
@@ -140,44 +143,39 @@ export function Hero() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Canvas Magnetic Grid Logic
+  // Lógica del efecto de deformación
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-
     let animationFrameId: number;
     const spacing = 64;
     let cols = 0;
     let rows = 0;
     let nodes: { ox: number; oy: number; x: number; y: number; vx: number; vy: number }[][] = [];
     let mouse = { x: -1000, y: -1000, radius: 75 };
-
+    // Obtiene la posición del mouse
     const handleCanvasMouseMove = (e: MouseEvent) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
     };
-
+    // Limpia la posición del mouse al salir de la pantalla
     const handleMouseLeave = () => {
       mouse.x = -1000;
       mouse.y = -1000;
     };
-
     window.addEventListener("mousemove", handleCanvasMouseMove);
     window.addEventListener("mouseleave", handleMouseLeave);
-
+    // Inicializa la malla
     const initGrid = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      
       cols = Math.ceil(canvas.width / spacing) + 2;
       rows = Math.ceil(canvas.height / spacing) + 2;
       nodes = [];
-
       const offsetX = (canvas.width - (cols - 1) * spacing) / 2;
       const offsetY = (canvas.height - (rows - 1) * spacing) / 2;
-
       for (let i = 0; i < cols; i++) {
         nodes[i] = [];
         for (let j = 0; j < rows; j++) {
@@ -187,54 +185,46 @@ export function Hero() {
         }
       }
     };
-
+    // Animación de deformación
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
           let node = nodes[i][j];
-
           const dx = mouse.x - node.x;
           const dy = mouse.y - node.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-
           if (dist < mouse.radius) {
             const force = (mouse.radius - dist) / mouse.radius;
             const angle = Math.atan2(dy, dx);
-            // Disminuida la fuerza del empuje de 20 a 12 para que sea más sutil
+            // Fuerza de repulsión
             const pushX = Math.cos(angle) * force * 5;
             const pushY = Math.sin(angle) * force * 5;
-
             node.vx -= pushX;
             node.vy -= pushY;
           }
-
+          // Restaura la posición original
           node.vx += (node.ox - node.x) * 0.05;
           node.vy += (node.oy - node.y) * 0.05;
-          
           node.vx *= 0.75;
           node.vy *= 0.75;
-
           node.x += node.vx;
           node.y += node.vy;
         }
       }
-
+      // Dibuja la malla
       ctx.beginPath();
       ctx.strokeStyle = resolvedTheme === "dark" ? "rgba(255, 255, 255, 0.15)" : "rgba(0, 0, 0, 0.08)";
       ctx.lineWidth = resolvedTheme === "dark" ? 2 : 1.5;
-
       for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
           let node = nodes[i][j];
-
-          // Conectar hacia la derecha
+          // Conecta hacia la derecha
           if (i < cols - 1) {
             ctx.moveTo(node.x, node.y);
             ctx.lineTo(nodes[i + 1][j].x, nodes[i + 1][j].y);
           }
-          // Conectar hacia abajo
+          // Conecta hacia abajo
           if (j < rows - 1) {
             ctx.moveTo(node.x, node.y);
             ctx.lineTo(nodes[i][j + 1].x, nodes[i][j + 1].y);
@@ -242,18 +232,17 @@ export function Hero() {
         }
       }
       ctx.stroke();
-
       animationFrameId = requestAnimationFrame(animate);
     };
-
+    // Inicializa la malla y arranca el bucle de animación
     initGrid();
     animate();
-
+    // Detecta el cambio de tamaño de la pantalla
     const handleResize = () => {
       initGrid();
     };
     window.addEventListener("resize", handleResize);
-
+    // Limpia los eventos cuando el componente se desmonta
     return () => {
       window.removeEventListener("mousemove", handleCanvasMouseMove);
       window.removeEventListener("mouseleave", handleMouseLeave);
@@ -262,23 +251,19 @@ export function Hero() {
     };
   }, [resolvedTheme]);
 
-  const mouseX = useSpring(mousePosition.x, { stiffness: 50, damping: 20 });
-  const mouseY = useSpring(mousePosition.y, { stiffness: 50, damping: 20 });
-
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
-      
+      {/* Canvas para el efecto de deformación */}
       <canvas 
         ref={canvasRef} 
         className="absolute inset-0 z-0 pointer-events-none [mask-image:radial-gradient(ellipse_100%_100%_at_50%_50%,#000_30%,transparent_80%)]"
       />
-
+      {/* Gradientes decorativos */}
       <div className="absolute top-[10%] left-[20%] w-[40vw] h-[40vw] bg-primary/20 rounded-full blur-[150px] mix-blend-screen animate-[pulse-glow_8s_ease-in-out_infinite] -z-10 pointer-events-none"></div>
       <div className="absolute bottom-[10%] right-[10%] w-[35vw] h-[35vw] bg-accent/10 rounded-full blur-[130px] mix-blend-screen animate-[float_10s_ease-in-out_infinite] -z-10 pointer-events-none"></div>
-
+      {/* Contenido principal */}
       <div className="container mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-center min-h-screen pt-32 lg:pt-40 pb-20 pointer-events-none">
-        
-        {/* Left Content */}
+        {/* Texto izquierdo */}
         <motion.div 
           className="flex flex-col gap-8 lg:col-span-5 col-span-full z-20 pointer-events-auto"
           initial={{ opacity: 0, y: 50 }}
@@ -290,7 +275,7 @@ export function Hero() {
             <Code size={16} className="text-accent animate-pulse" />
             <span className="text-sm font-semibold tracking-widest uppercase text-foreground/90">Next-Gen Software</span>
           </div>
-          
+          {/* Titulo */}
           <h1 className="text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-[5.5rem] font-black font-kanit leading-[1.1] tracking-tight">
             Construimos el <br/>
             <span className="text-transparent bg-clip-text bg-[linear-gradient(45deg,var(--primary),var(--foreground),var(--primary))] bg-[length:400%_400%] animate-[gradient-xy_5s_ease_infinite]">
@@ -298,11 +283,11 @@ export function Hero() {
             </span><br/>
             de tu Empresa
           </h1>
-          
+          {/* Subtítulo */}
           <p className="text-xl md:text-2xl text-foreground font-open-sans max-w-xl font-normal">
             Desarrollamos software, inteligencia artificial y automatizaciones que impulsan el crecimiento de tu empresa.
           </p>
-          
+          {/* Botones */}
           <div className="flex flex-wrap gap-6 mt-4">
             <motion.a 
               href="#services"
@@ -326,7 +311,7 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* Right Abstract Visuals (3D + AI Chat) */}
+        {/* Widgets */}
         <motion.div 
           className="relative h-[500px] lg:h-[700px] w-full hidden lg:flex items-center justify-center perspective-[1000px] pointer-events-auto lg:col-span-7"
           initial={{ opacity: 0, scale: 0.8 }}
@@ -334,14 +319,12 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
           style={{ y: y1 }}
         >
-          {/* AI Assistant Widget */}
+          {/* Widget IA */}
           <motion.div
             className="absolute top-[5%] md:top-[8%] left-[0%] lg:left-[5%] xl:left-[2%] 2xl:left-[3%] w-[340px] md:w-[380px] 2xl:w-[440px] glass-card bg-foreground/5 backdrop-blur-[2px] p-6 2xl:p-8 rounded-[2rem] z-30 shadow-primary border border-foreground/10 overflow-hidden"
             style={{ y: y2 }}
           >
-            {/* Top Shine highlight */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-            
             {/* Header */}
             <div className="flex items-center gap-4 mb-8 pb-4 border-b border-foreground/10">
               <div className="relative flex items-center justify-center w-12 h-12 rounded-2xl bg-primary/20 text-primary shadow-inner">
@@ -353,8 +336,7 @@ export function Hero() {
                 <p className="text-[10px] text-foreground/50 font-mono tracking-widest uppercase mt-0.5">Especializada en tu negocio</p>
               </div>
             </div>
-
-            {/* Chat Container */}
+            {/* Chat */}
             <div className="space-y-4 min-h-[220px] 2xl:min-h-[250px]">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -364,7 +346,7 @@ export function Hero() {
                   exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
                   className="space-y-5"
                 >
-                  {/* User Message */}
+                  {/* Mensaje de usuario */}
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -376,7 +358,7 @@ export function Hero() {
                     </div>
                   </motion.div>
 
-                  {/* Bot Thinking / Reply */}
+                  {/* Respuesta del Bot */}
                   {chatStep > 0 && (
                     <motion.div
                       initial={{ opacity: 0, scale: 0.9 }}
@@ -416,14 +398,12 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* Automation Pipeline Widget */}
+          {/* Widget de Automatizaciones */}
           <motion.div
             className="absolute bottom-[10%] xl:bottom-[20%] right-[0%] xl:right-[-5%] 2xl:right-[-2%] w-[320px] md:w-[360px] 2xl:w-[420px] glass-card bg-foreground/5 backdrop-blur-[2px] p-6 2xl:p-8 rounded-[2rem] z-30 shadow-primary border border-foreground/10 overflow-hidden hidden xl:block"
             style={{ y: y1 }}
           >
-            {/* Top Shine highlight */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-            
             {/* Header */}
             <div className="flex items-center gap-4 mb-6 pb-4 border-b border-foreground/10">
               <div className="relative flex items-center justify-center w-12 h-12 rounded-2xl bg-primary/10 text-primary shadow-inner overflow-hidden border border-primary/20">
@@ -434,7 +414,6 @@ export function Hero() {
                 <p className="text-[10px] text-foreground/50 font-mono tracking-widest uppercase mt-0.5">Adiós a las tareas repetitivas</p>
               </div>
             </div>
-
             {/* Body */}
             <div className="min-h-[160px] 2xl:min-h-[190px]">
               <AnimatePresence mode="wait">
@@ -458,8 +437,7 @@ export function Hero() {
                       {autoStep === 1 && <span className="text-[10px] uppercase font-bold text-green-600 animate-pulse tracking-wider">Ejecutando</span>}
                       {autoStep === 2 && <span className="text-[10px] uppercase font-bold text-green-600 tracking-wider">Completado</span>}
                     </div>
-                    
-                    {/* Progress Bar */}
+                    {/* Barra de progreso */}
                     <div className="h-1.5 w-full bg-foreground/5 rounded-full overflow-hidden mb-4 shadow-inner">
                       <motion.div
                         className={`h-full ${autoStep === 2 ? 'bg-green-600' : 'bg-green-600'}`}
@@ -468,8 +446,7 @@ export function Hero() {
                         transition={{ duration: autoStep === 1 ? 2.5 : 0.3, ease: "linear" }}
                       />
                     </div>
-                    
-                    {/* Result */}
+                    {/* Resultado */}
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         {autoStep === 2 ? <CheckCircle2 size={16} className="text-green-600" /> : <Play size={16} className="text-foreground/40" />}
@@ -486,7 +463,6 @@ export function Hero() {
               </AnimatePresence>
             </div>
           </motion.div>
-
         </motion.div>
       </div>
     </section>
