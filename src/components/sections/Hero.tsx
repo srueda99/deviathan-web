@@ -252,8 +252,7 @@ export function Hero() {
         animationFrameId = requestAnimationFrame(animate);
       }
     };
-    // Arranca/detiene el bucle bajo demanda para no gastar CPU/GPU cuando
-    // nadie está viendo el canvas.
+    // Detiene el bucle mientras no está en pantalla
     const start = () => {
       if (running) return;
       running = true;
@@ -279,7 +278,7 @@ export function Hero() {
         isOnScreen = entry.isIntersecting;
         reconcile();
       },
-      { threshold: 0 }
+      { threshold: 0 },
     );
     observer.observe(canvas);
     // Pausa también al cambiar de pestaña / minimizar.
