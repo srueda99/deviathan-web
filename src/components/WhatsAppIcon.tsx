@@ -1,11 +1,11 @@
 "use client";
 
 import { SiWhatsapp } from "react-icons/si";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 export function WhatsAppIcon() {
   return (
-    <motion.a
+    <m.a
       href="https://wa.me/12817461015"
       target="_blank"
       rel="noopener noreferrer"
@@ -18,6 +18,6 @@ export function WhatsAppIcon() {
       aria-label="Escríbenos por WhatsApp"
     >
       <SiWhatsapp size={28} />
-    </motion.a>
+    </m.a>
   );
 }

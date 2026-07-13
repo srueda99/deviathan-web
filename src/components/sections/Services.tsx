@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { m, Variants } from "framer-motion";
 import {
   Zap,
   ArrowRight
@@ -92,15 +92,15 @@ export function Services() {
         <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div className="max-w-3xl">
             {/* Titulo y descripcion */}
-            <motion.h2
+            <m.h2
               className="text-5xl md:text-7xl font-black font-kanit tracking-tight uppercase"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
               Nuestros <span className="text-transparent bg-clip-text bg-primary">Servicios</span>
-            </motion.h2>
-            <motion.p 
+            </m.h2>
+            <m.p 
               className="text-xl text-foreground font-open-sans mt-6 max-w-xl font-normal"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -108,10 +108,10 @@ export function Services() {
               transition={{ delay: 0.1 }}
             >
               Nos encargamos de cada detalle para que puedas concentrarte en lo que más importa: <span className="text-accent">tu negocio</span>.
-            </motion.p>
+            </m.p>
           </div>
           {/* Animación del relámpago */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -119,10 +119,10 @@ export function Services() {
             <div className="w-24 h-24 rounded-full border border-foreground/10 flex items-center justify-center animate-[spin_10s_linear_infinite]">
               <Zap className="text-accent w-10 h-10" />
             </div>
-          </motion.div>
+          </m.div>
         </div>
         {/* Grid de servicios */}
-        <motion.div 
+        <m.div 
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[300px]"
           variants={container}
           initial="hidden"
@@ -130,7 +130,7 @@ export function Services() {
           viewport={{ once: true, margin: "-100px" }}
         >
           {services.map((service, index) => (
-            <motion.div 
+            <m.div 
               key={index} 
               variants={item}
               className={`group relative rounded-3xl overflow-hidden glass-card transition-all duration-500 ${service.colorClass} ${service.colSpan}`}
@@ -158,9 +158,9 @@ export function Services() {
                   <span className="sr-only">Seleccionar servicio {service.description}</span>
                 </a>
               </div>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

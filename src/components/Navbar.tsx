@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useTheme } from "next-themes";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -28,22 +28,26 @@ export function Navbar() {
     { name: "Contacto", href: "#contact" },
   ];
 
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.includes('?')) return;
+  const scrollToSection = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    if (href.includes("?")) return;
 
     e.preventDefault();
-    const targetId = href.replace('#', '');
+    const targetId = href.replace("#", "");
     const element = document.getElementById(targetId);
-    
+
     if (element) {
       const navbarHeight = 100;
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-      
+      const elementPosition =
+        element.getBoundingClientRect().top + window.scrollY;
+
       window.scrollTo({
         top: elementPosition - navbarHeight,
-        behavior: "smooth"
+        behavior: "smooth",
       });
-      window.history.pushState({}, '', href);
+      window.history.pushState({}, "", href);
     }
 
     if (isMobileMenuOpen) {
@@ -52,19 +56,29 @@ export function Navbar() {
   };
 
   return (
-    <motion.header
+    <m.header
       className={`fixed top-0 left-0 z-40 w-full transition-colors duration-300 ${
-        isScrolled ? "bg-background/80 backdrop-blur-md shadow-lg" : "bg-transparent"
+        isScrolled
+          ? "bg-background/80 backdrop-blur-md shadow-lg"
+          : "bg-transparent"
       }`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="#home" onClick={(e) => scrollToSection(e, "#home")} className="relative h-16 w-48 md:h-28 md:w-80 flex items-center shrink-0 cursor-pointer">
+        <a
+          href="#home"
+          onClick={(e) => scrollToSection(e, "#home")}
+          className="relative h-16 w-48 md:h-28 md:w-80 flex items-center shrink-0 cursor-pointer"
+        >
           {mounted && (
             <Image
-              src={resolvedTheme === 'dark' ? "/logos/logoAndname-white.svg" : "/logos/logoAndname-black.svg"}
+              src={
+                resolvedTheme === "dark"
+                  ? "/logos/logoAndname-white.svg"
+                  : "/logos/logoAndname-black.svg"
+              }
               alt="Deviathan Logo"
               fill
               className="object-contain object-left"
@@ -104,9 +118,15 @@ export function Navbar() {
             aria-label="Toggle Menu"
           >
             <div className="flex flex-col justify-between w-6 h-5 transform transition-all duration-300 origin-center overflow-hidden">
-              <div className={`bg-foreground h-[2px] w-7 transform transition-all duration-300 origin-left ${isMobileMenuOpen ? 'rotate-[42deg] w-8' : ''}`}></div>
-              <div className={`bg-foreground h-[2px] w-7 rounded transform transition-all duration-300 ${isMobileMenuOpen ? '-translate-x-10 opacity-0' : ''}`}></div>
-              <div className={`bg-foreground h-[2px] w-7 transform transition-all duration-300 origin-left ${isMobileMenuOpen ? '-rotate-[42deg] w-8' : ''}`}></div>
+              <div
+                className={`bg-foreground h-[2px] w-7 transform transition-all duration-300 origin-left ${isMobileMenuOpen ? "rotate-[42deg] w-8" : ""}`}
+              ></div>
+              <div
+                className={`bg-foreground h-[2px] w-7 rounded transform transition-all duration-300 ${isMobileMenuOpen ? "-translate-x-10 opacity-0" : ""}`}
+              ></div>
+              <div
+                className={`bg-foreground h-[2px] w-7 transform transition-all duration-300 origin-left ${isMobileMenuOpen ? "-rotate-[42deg] w-8" : ""}`}
+              ></div>
             </div>
           </button>
         </div>
@@ -114,7 +134,7 @@ export function Navbar() {
 
       {/* Versión Mobile del Menú */}
       {isMobileMenuOpen && (
-        <motion.div
+        <m.div
           className="lg:hidden bg-background/90 backdrop-blur-md border-t border-foreground/5 shadow-2xl h-[50vh] overflow-y-auto"
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "50vh" }}
@@ -136,7 +156,7 @@ export function Navbar() {
                 )}
               </div>
             ))}
-            
+
             <a
               href="#contact"
               onClick={(e) => scrollToSection(e, "#contact")}
@@ -145,8 +165,8 @@ export function Navbar() {
               Comenzar
             </a>
           </div>
-        </motion.div>
+        </m.div>
       )}
-    </motion.header>
+    </m.header>
   );
 }

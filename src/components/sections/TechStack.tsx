@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Brain } from "lucide-react";
 import { 
   FaAws, 
@@ -80,7 +80,7 @@ export function TechStack() {
       </div>
       {/* Carrusel de tecnologías superior */}
       <div className="flex overflow-visible relative w-full mb-10 py-4">
-        <motion.div 
+        <m.div 
           className="flex whitespace-nowrap gap-6 px-3"
           animate={{ x: ["0%", "-50%"] }}
           transition={{ 
@@ -108,11 +108,11 @@ export function TechStack() {
               </div>
             </div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
       {/* Carrusel de integraciones inferior */}
       <div className="flex overflow-visible relative w-full py-4">
-        <motion.div 
+        <m.div 
           className="flex whitespace-nowrap gap-6 px-3"
           animate={{ x: ["-50%", "0%"] }}
           transition={{ 
@@ -140,7 +140,7 @@ export function TechStack() {
               </div>
             </div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-primary/10 rounded-[100%] blur-[120px] -z-10 pointer-events-none mix-blend-screen"></div>
     </section>

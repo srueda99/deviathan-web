@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, useScroll } from "framer-motion";
+import { m, useScroll } from "framer-motion";
 import { CheckCircle2, Hexagon } from "lucide-react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
@@ -31,7 +31,7 @@ export function About() {
       {/* Contenedor principal */}
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
-          <motion.div 
+          <m.div 
             className="relative order-2 lg:order-1"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -41,7 +41,7 @@ export function About() {
             {/* Contenedor del Logo */}
             <div className="relative w-full aspect-square max-w-lg mx-auto">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--primary)_0%,transparent_70%)] opacity-30 blur-2xl animate-pulse"></div>
-              <motion.div 
+              <m.div 
                 className="absolute inset-0 rounded-[40px] bg-background/40 backdrop-blur-3xl border border-foreground/10 flex items-center justify-center overflow-hidden cursor-crosshair group shadow-[0_0_50px_rgba(0,0,0,0.2)]"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
@@ -89,11 +89,11 @@ export function About() {
                     </>
                   )}
                 </div>
-              </motion.div>
+              </m.div>
             </div>
-          </motion.div>
+          </m.div>
           {/* Texto y beneficios */}
-          <motion.div
+          <m.div
             className="order-1 lg:order-2"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -117,7 +117,7 @@ export function About() {
             {/* Beneficios */}
             <div className="space-y-6">
               {benefits.map((benefit, index) => (
-                <motion.div 
+                <m.div 
                   key={index}
                   className="flex items-center gap-4 group cursor-default"
                   initial={{ opacity: 0, x: 20 }}
@@ -129,11 +129,11 @@ export function About() {
                     <CheckCircle2 className="w-6 h-6" />
                   </div>
                   <p className="font-open-sans text-lg text-foreground/90 group-hover:text-primary transition-colors duration-300 font-medium">{benefit}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
             {/* Texto de cierre */}
-            <motion.div 
+            <m.div 
               className="mt-12 p-8 glass-card rounded-2xl border-l-4 border-l-accent relative overflow-hidden"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -147,8 +147,8 @@ export function About() {
                   Más tiempo para hacer crecer tu negocio. Menos tiempo resolviendo problemas.
                 </span>
               </p>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
       </div>
     </section>
