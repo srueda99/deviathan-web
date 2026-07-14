@@ -81,7 +81,7 @@ const automationScenarios = [
 export function Hero() {
   // Animaciones para el scroll
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 1000], [0, 300]);
+  const y1 = useTransform(scrollY, [0, 1000], [0, 150]);
   const y2 = useTransform(scrollY, [0, 1000], [0, -200]);
   const opacity = useTransform(scrollY, [0, 500], [1, 0]);
 
@@ -310,7 +310,7 @@ export function Hero() {
         className="absolute inset-0 z-0 pointer-events-none [mask-image:radial-gradient(ellipse_100%_100%_at_50%_50%,#000_30%,transparent_80%)]"
       />
       {/* Contenido principal */}
-      <div className="container mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-center min-h-screen pt-32 lg:pt-40 pb-20 pointer-events-none">
+      <div className="container mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-center min-h-screen pt-32 lg:pt-40 xl:pt-20 2xl:pt-40 pb-20 pointer-events-none">
         {/* Texto izquierdo */}
         <m.div
           className="flex flex-col gap-8 lg:col-span-5 col-span-full z-20 pointer-events-auto"
@@ -377,7 +377,7 @@ export function Hero() {
         >
           {/* Widget IA */}
           <m.div
-            className="absolute top-[5%] md:top-[8%] left-[0%] lg:left-[5%] xl:left-[2%] 2xl:left-[3%] w-[340px] md:w-[380px] 2xl:w-[440px] glass-card bg-foreground/5 backdrop-blur-[2px] p-6 2xl:p-8 rounded-[2rem] z-30 shadow-primary border border-foreground/10 overflow-hidden"
+            className="absolute top-[5%] md:top-[8%] left-[0%] lg:left-[5%] xl:left-[2%] xl:top-[0%] 2xl:left-[3%] w-[340px] md:w-[380px] 2xl:w-[440px] glass-card bg-foreground/5 backdrop-blur-[2px] p-6 2xl:p-8 rounded-[2rem] z-30 shadow-primary border border-foreground/10 overflow-hidden"
             style={{ y: y2 }}
           >
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
@@ -499,7 +499,7 @@ export function Hero() {
 
           {/* Widget de Automatizaciones */}
           <m.div
-            className="absolute bottom-[10%] xl:bottom-[20%] right-[0%] xl:right-[-5%] 2xl:right-[-2%] w-[320px] md:w-[360px] 2xl:w-[420px] glass-card bg-foreground/5 backdrop-blur-[2px] p-6 2xl:p-8 rounded-[2rem] z-30 shadow-primary border border-foreground/10 overflow-hidden hidden xl:block"
+            className="absolute bottom-[10%] xl:bottom-[30%] right-[0%] xl:right-[-5%] 2xl:right-[-2%] w-[320px] md:w-[360px] 2xl:w-[420px] glass-card bg-foreground/5 backdrop-blur-[2px] p-6 2xl:p-8 rounded-[2rem] z-30 shadow-primary border border-foreground/10 overflow-hidden hidden xl:block"
             style={{ y: y1 }}
           >
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>

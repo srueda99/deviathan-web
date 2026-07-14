@@ -15,6 +15,7 @@ A continuación se detalla la documentación para cada componente de sección ub
 ---
 
 ## Estándares de Diseño
+
 - **Tipografía**: Kanit (para títulos) y Open Sans (para cuerpo de texto).
 - **Colores**: Uso intensivo de variables CSS (`--primary`, `--accent`, `--background`, `--foreground`).
 - **Efectos**: Glassmorphism (cristal) y animaciones fluidas con Framer Motion.
