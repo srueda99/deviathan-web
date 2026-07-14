@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 export async function POST(request: Request) {
   try {
@@ -9,8 +9,8 @@ export async function POST(request: Request) {
     // Validaciones de los campos del formulario
     if (!name || !email || !service || !message) {
       return NextResponse.json(
-        { error: 'Faltan campos requeridos' },
-        { status: 400 }
+        { error: "Faltan campos requeridos" },
+        { status: 400 },
       );
     }
 
@@ -28,8 +28,8 @@ export async function POST(request: Request) {
     // Plantilla para el correo de recepción
     const mailToAdmin = {
       from: `"Deviathan Web" <${process.env.EMAIL_USER}>`,
-      to: 'ruedamarinsebastian@gmail.com',
-      subject: `🔥 Nuevo Proyecto Deviathan: ${service} - ${name}`,
+      to: process.env.EMAIL_USER,
+      subject: `🔥 Nuevo Proyecto Solicitado: ${service} - ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #E2E8F0; border-radius: 10px;">
           <h2 style="color: #7668E7;">Nueva Solicitud de Proyecto</h2>
@@ -49,7 +49,7 @@ export async function POST(request: Request) {
             </tr>
           </table>
           <h3 style="color: #110941; margin-top: 20px;">Detalles del Proyecto:</h3>
-          <div style="background-color: #f7f7f7; padding: 15px; border-left: 4px solid #FF6B00; border-radius: 4px; white-space: pre-wrap;">
+          <div style="background-color: #f7f7f7; padding: 15px; border-left: 4px solid #019382; border-radius: 4px; white-space: pre-wrap;">
             ${message}
           </div>
         </div>
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
     const mailToUser = {
       from: `"Deviathan" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: 'Hemos recibido tu solicitud de proyecto - Deviathan',
+      subject: "Hemos recibido tu solicitud de proyecto - Deviathan",
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #E2E8F0; border-radius: 10px;">
           <h2 style="color: #7668E7;">¡Misión Confirmada, ${name}!</h2>
@@ -74,7 +74,7 @@ export async function POST(request: Request) {
           <p>Si tienes información adicional que quieras agregar, simplemente responde a este correo.</p>
           <p style="margin-top: 30px;">
             <strong>El equipo de Deviathan</strong><br/>
-            <span style="color: #FF6B00;">Diseñando la evolución digital de tu empresa.</span>
+            <span style="color: #019382;">Lo haremos posible.</span>
           </p>
         </div>
       `,
@@ -83,15 +83,17 @@ export async function POST(request: Request) {
     // Envía ambos correos
     await Promise.all([
       transporter.sendMail(mailToAdmin),
-      transporter.sendMail(mailToUser)
+      transporter.sendMail(mailToUser),
     ]);
-    return NextResponse.json({ success: true, message: 'Correos enviados exitosamente' });
-    
+    return NextResponse.json({
+      success: true,
+      message: "Correos enviados exitosamente",
+    });
   } catch (error) {
-    console.error('Error enviando el correo:', error);
+    console.error("Error enviando el correo:", error);
     return NextResponse.json(
-      { error: 'Error interno al procesar el envío de correos' },
-      { status: 500 }
+      { error: "Error interno al procesar el envío de correos" },
+      { status: 500 },
     );
   }
 }
