@@ -377,7 +377,7 @@ export function Hero() {
         >
           {/* Widget IA */}
           <m.div
-            className="absolute top-[5%] md:top-[8%] left-[0%] lg:left-[5%] xl:left-[2%] xl:top-[0%] 2xl:left-[3%] w-[340px] md:w-[380px] 2xl:w-[440px] glass-card bg-foreground/5 backdrop-blur-[2px] p-6 2xl:p-8 rounded-[2rem] z-30 shadow-primary border border-foreground/10 overflow-hidden"
+            className="absolute top-[5%] md:top-[8%] left-[0%] lg:left-[5%] xl:left-[2%] xl:top-[5%] 2xl:left-[3%] w-[340px] md:w-[380px] 2xl:w-[440px] glass-card bg-foreground/5 backdrop-blur-[2px] p-6 2xl:p-8 rounded-[2rem] z-30 shadow-primary border border-foreground/10 overflow-hidden"
             style={{ y: y2 }}
           >
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
@@ -499,7 +499,7 @@ export function Hero() {
 
           {/* Widget de Automatizaciones */}
           <m.div
-            className="absolute bottom-[10%] xl:bottom-[30%] right-[0%] xl:right-[-5%] 2xl:right-[-2%] w-[320px] md:w-[360px] 2xl:w-[420px] glass-card bg-foreground/5 backdrop-blur-[2px] p-6 2xl:p-8 rounded-[2rem] z-30 shadow-primary border border-foreground/10 overflow-hidden hidden xl:block"
+            className="absolute bottom-[10%] xl:bottom-[27%] right-[0%] xl:right-[-5%] 2xl:right-[-2%] w-[320px] md:w-[360px] 2xl:w-[420px] glass-card bg-foreground/5 backdrop-blur-[2px] p-6 2xl:p-8 rounded-[2rem] z-30 shadow-primary border border-foreground/10 overflow-hidden hidden xl:block"
             style={{ y: y1 }}
           >
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
